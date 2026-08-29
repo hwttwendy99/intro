@@ -1,0 +1,25 @@
+/* @kd-registry: progress v2.0 */
+/* ══ Progress 进度条 ══ */
+
+.kd-progress { display: flex; align-items: center; }
+.kd-progress-line-outer {
+  flex: 1; height: 6px;
+  background: var(--kd-color-state-hover);
+  border-radius: var(--kd-border-radius-circle);
+  overflow: hidden;
+}
+.kd-progress-line-inner {
+  height: 100%;
+  background: var(--kd-color-public-normal);
+  border-radius: var(--kd-border-radius-circle);
+  transition: width .3s ease;
+}
+.kd-progress-text {
+  margin-left: 10px;
+  font-size: var(--kd-font-size-sub-base); line-height: 20px;
+  white-space: nowrap;
+}
+
+/* Status */
+.kd-progress-success .kd-progress-line-inner { background: var(--kd-color-success-normal); }
+.kd-progress-error   .kd-progress-line-inner { background: var(--kd-color-error-normal); }

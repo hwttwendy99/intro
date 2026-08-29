@@ -1,0 +1,58 @@
+/* @kd-registry: input v2.0 */
+/* ══ Input 输入框 ══ */
+
+.kd-input-wrap {
+  display: inline-flex; align-items: center; width: 100%;
+  background: var(--kd-color-fill-base);
+  border: 1px solid var(--kd-color-line-regular);
+  border-radius: var(--kd-border-radius-middle);
+  padding: 0 4px 0 8px;
+  transition: border-color var(--kd-time-fast);
+  box-sizing: border-box;
+}
+.kd-input-wrap > * + * { margin-left: 8px; }
+
+/* Hover / Focus / Error / Disabled */
+.kd-input:hover:not(.is-disabled):not(.kd-input-status-error) .kd-input-wrap { border-color: var(--kd-color-line-medium); }
+.kd-input.is-focus .kd-input-wrap,
+.kd-input-wrap:focus-within { border-color: var(--kd-color-line-public) !important; }
+.kd-input-status-error .kd-input-wrap { border-color: var(--kd-color-error-normal) !important; box-shadow: none; }
+.kd-input.is-disabled .kd-input-wrap { background: var(--kd-color-fill-regular); border-color: var(--kd-color-line-heavy); opacity: var(--kd-opacity-disabled); }
+
+/* Size — min-height on wrap guarantees height even if .kd-input-inner is missing */
+.kd-input-small .kd-input-wrap  { border-radius: var(--kd-border-radius-small); min-height: 24px; }
+.kd-input-medium .kd-input-wrap { min-height: 28px; }
+.kd-input-large .kd-input-wrap  { min-height: 32px; }
+.kd-input-x-large .kd-input-wrap { min-height: 36px; }
+.kd-input-small .kd-input-inner { height: 22px; padding: 0; }
+.kd-input-medium .kd-input-inner { padding: 2px 0; }
+.kd-input-large .kd-input-inner  { padding: 4px 0; }
+.kd-input-x-large .kd-input-inner { padding: 6px 0; }
+
+/* Inner */
+.kd-input-inner {
+  flex: 1; border: none; outline: none; background: transparent;
+  font-size: var(--kd-font-size-sub-base); color: var(--kd-color-text-primary);
+  line-height: var(--kd-line-height-base); padding: 4px 0; min-width: 0;
+}
+.kd-input-inner::placeholder { color: var(--kd-color-text-tertiary); }
+.kd-input-inner:disabled { cursor: not-allowed; color: var(--kd-color-text-tertiary); }
+
+/* Prefix / Suffix (decorative) */
+.kd-input-prefix,
+.kd-input-suffix {
+  flex-shrink: 0; display: flex; align-items: center;
+  color: var(--kd-color-icon-secondary);
+}
+.kd-input-prefix svg,
+.kd-input-suffix svg { display: block; width: 16px; height: 16px; }
+
+/* Icon button inside Input (clickable) */
+.kd-input-icon {
+  flex-shrink: 0; color: var(--kd-color-icon-secondary);
+  font-size: var(--kd-font-size-base);
+  display: flex; align-items: center;
+  border: none; background: transparent;
+  padding: 4px; border-radius: var(--kd-border-radius-small); cursor: pointer;
+}
+.kd-input-icon:hover { color: var(--kd-color-text-secondary); }

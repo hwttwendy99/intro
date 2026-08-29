@@ -1,0 +1,29 @@
+/* @kd-registry: textarea v2.0 */
+/* ══ Textarea 文本域 ══ */
+
+.kd-textarea {
+  display: inline-flex; width: 100%;
+  background: var(--kd-color-fill-base);
+  border: 1px solid var(--kd-color-line-medium);
+  border-radius: var(--kd-border-radius-middle);
+  padding: 4px 4px 4px 8px;
+  transition: border-color var(--kd-time-fast);
+  box-sizing: border-box;
+}
+.kd-textarea.is-focus,
+.kd-textarea:focus-within { border-color: var(--kd-color-line-public); }
+.kd-textarea-status-error { border-color: var(--kd-color-error-normal) !important; }
+.kd-textarea.is-disabled { background: var(--kd-color-fill-regular); border-color: var(--kd-color-line-heavy); opacity: var(--kd-opacity-disabled); }
+
+.kd-textarea-inner {
+  flex: 1; border: none; outline: none; background: transparent; resize: none;
+  font-size: var(--kd-font-size-sub-base); color: var(--kd-color-text-primary);
+  line-height: var(--kd-line-height-base); padding: 0 4px 0 0; min-height: 22px;
+}
+.kd-textarea-inner::placeholder { color: var(--kd-color-text-tertiary); }
+
+.kd-textarea-count {
+  height: 20px; padding-right: 8px; margin-top: 8px;
+  font-size: var(--kd-font-size-small); line-height: 20px;
+  text-align: right; color: var(--kd-color-icon-secondary);
+}

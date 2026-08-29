@@ -1,0 +1,17 @@
+/* @kd-registry: link v2.0 */
+/* ══ Link 链接 ══ */
+
+.kd-link {
+  display: inline-flex; align-items: center;
+  height: 22px; line-height: 22px;
+  font-size: var(--kd-font-size-sub-base); color: var(--kd-color-text-primary);
+  text-decoration: none; cursor: pointer;
+  transition: color var(--kd-time-fast);
+}
+.kd-link:hover:not(.is-disabled)  { color: var(--kd-color-public-normal); }
+.kd-link:active:not(.is-disabled) { color: var(--kd-color-public-normal); }
+
+.kd-link-primary { color: var(--kd-color-public-normal); }
+.kd-link.is-underline { text-decoration: underline; }
+.kd-link.is-disabled { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
+.kd-link-icon { width: 14px; height: 14px; margin-left: 5px; }

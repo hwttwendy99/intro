@@ -1,0 +1,112 @@
+/* @kd-registry: rate v2.0 */
+/* ══ Rate 评分 ══ */
+
+.kd-rate {
+  --kd-rate-icon-size: 20px;
+  --kd-rate-selected-color: var(--kd-color-public-normal);
+  --kd-rate-unselected-color: var(--kd-color-fill-heavy);
+  --kd-rate-gap: 4px;
+  display: inline-flex; align-items: center;
+  gap: 8px; max-width: 100%;
+  color: var(--kd-rate-unselected-color);
+}
+
+/* Size */
+.kd-rate-small  { --kd-rate-icon-size: 16px; }
+.kd-rate-medium { --kd-rate-icon-size: 20px; }
+.kd-rate-large  { --kd-rate-icon-size: 24px; }
+
+/* RTL */
+.kd-rate[dir="rtl"] { direction: ltr; flex-direction: row-reverse; }
+.kd-rate[dir="rtl"] .kd-rate-list { direction: rtl; }
+
+/* List */
+.kd-rate-list {
+  display: inline-flex; align-items: center;
+  gap: var(--kd-rate-gap); flex-wrap: nowrap;
+  flex: 0 0 auto; min-width: 0;
+}
+
+/* Item */
+.kd-rate-item {
+  position: relative; display: inline-flex;
+  align-items: center; justify-content: center;
+  width: var(--kd-rate-icon-size); height: var(--kd-rate-icon-size);
+  padding: 0; border: none; background: transparent;
+  color: var(--kd-rate-unselected-color);
+  cursor: pointer; line-height: 1;
+}
+
+/* Icon */
+.kd-rate-icon-wrap,
+.kd-rate-icon {
+  display: inline-flex;
+  width: var(--kd-rate-icon-size); height: var(--kd-rate-icon-size);
+}
+.kd-rate-icon-wrap { position: relative; }
+.kd-rate-icon svg { width: 100%; height: 100%; fill: currentColor; }
+
+/* Selected / Hovered */
+.kd-rate-item.is-selected,
+.kd-rate-item.is-hovered { color: var(--kd-rate-selected-color); }
+.kd-rate-item.is-selected .kd-rate-icon-wrap,
+.kd-rate-item.is-hovered .kd-rate-icon-wrap { transform: scale(1.1); }
+.kd-rate-item:not(.is-selected):not(.is-hovered) .kd-rate-icon-wrap { transform: none; }
+
+/* Half mask */
+.kd-rate-half-mask {
+  position: absolute; inset-block: 0; inset-inline-start: 0;
+  width: 0; overflow: hidden;
+  color: var(--kd-rate-selected-color); pointer-events: none;
+}
+.kd-rate-half-mask .kd-rate-icon { position: absolute; inset-block: 0; inset-inline-start: 0; }
+.kd-rate-item.is-half { color: var(--kd-rate-unselected-color); }
+.kd-rate-item.is-half .kd-rate-half-mask { width: 50%; }
+
+/* RTL half mask */
+.kd-rate[dir="rtl"] .kd-rate-half-mask,
+[dir="rtl"] .kd-rate .kd-rate-half-mask { inset-inline-start: 0; inset-inline-end: auto; }
+.kd-rate[dir="rtl"] .kd-rate-half-mask .kd-rate-icon,
+[dir="rtl"] .kd-rate .kd-rate-half-mask .kd-rate-icon { inset-inline-start: 0; inset-inline-end: auto; }
+
+/* Disabled / Readonly */
+.kd-rate.is-disabled { opacity: var(--kd-opacity-disabled); cursor: not-allowed; }
+.kd-rate.is-disabled .kd-rate-item,
+.kd-rate.is-readonly .kd-rate-item { cursor: default; pointer-events: none; }
+
+/* Focus */
+.kd-rate-item:focus-visible {
+  outline: 2px solid var(--kd-color-public-normal);
+  outline-offset: 2px; box-shadow: none;
+}
+
+/* Label */
+.kd-rate-label {
+  color: var(--kd-color-text-secondary);
+  font-size: var(--kd-font-size-sub-base); line-height: 20px;
+  white-space: nowrap; flex: 1 1 0; min-width: 0;
+  overflow: hidden; text-overflow: ellipsis;
+}
+
+/* Tooltip */
+.kd-rate-tooltip {
+  position: absolute; inset-block-end: calc(100% + 10px);
+  inset-inline-start: 50%; transform: translateX(-50%);
+  display: none; z-index: 3;
+  padding: 6px 12px; border-radius: var(--kd-border-radius-middle);
+  border: 1px solid var(--kd-color-line-regular);
+  background: var(--kd-color-fill-base); box-shadow: var(--kd-box-shadow-large);
+  font-size: var(--kd-font-size-sub-base); line-height: 20px;
+  color: var(--kd-color-text-primary); white-space: nowrap; pointer-events: none;
+}
+.kd-rate-tooltip::after {
+  content: ""; position: absolute;
+  inset-block-start: 100%; inset-inline-start: 50%;
+  width: 0; height: 0;
+  border-inline-start: 6px solid transparent;
+  border-inline-end: 6px solid transparent;
+  border-block-start: 6px solid var(--kd-color-fill-base);
+  filter: drop-shadow(0 1px 0 var(--kd-color-line-regular));
+  transform: translateX(-50%);
+}
+.kd-rate-item.is-tooltip-visible .kd-rate-icon-wrap > .kd-rate-tooltip { display: block; }

@@ -1,0 +1,28 @@
+/* @kd-registry: message v2.0 */
+/* ══ Message 全局提示 ══ */
+
+.kd-message-root {
+  position: fixed; top: 88px; left: 50%; transform: translateX(-50%);
+  z-index: 9000; display: flex; flex-direction: column; align-items: center;
+  gap: 8px; pointer-events: none;
+}
+.kd-message {
+  display: inline-flex; align-items: center;
+  padding: 9px 20px; border-radius: var(--kd-border-radius-large);
+  border: 1px solid; box-shadow: var(--kd-box-shadow-large);
+  font-size: var(--kd-font-size-sub-base); line-height: var(--kd-line-height-base);
+  pointer-events: auto;
+  animation: kd-toast-in .3s ease forwards;
+}
+@keyframes kd-toast-in {
+  from { opacity: 0; transform: translateY(-90%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.kd-message-icon { flex-shrink: 0; display: inline-flex; align-items: center; line-height: 1; }
+.kd-message-text { margin-left: 8px; color: var(--kd-color-text-primary); line-height: var(--kd-line-height-base); }
+
+.kd-message-success { background: var(--kd-color-success-light); border-color: var(--kd-color-success-normal); }
+.kd-message-error   { background: var(--kd-color-error-light);   border-color: var(--kd-color-error-normal); }
+.kd-message-warning { background: var(--kd-color-warning-light); border-color: var(--kd-color-warning-normal); }
+.kd-message-info,
+.kd-message-loading { background: var(--kd-color-info-light);    border-color: var(--kd-color-public-normal); }
