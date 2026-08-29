@@ -1,0 +1,3166 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Markdown Editor</title>
+    <style>
+      @import url("../kd-skills v0.5.0/kd-components/_css/tokens.css");
+      @import url("../kd-skills v0.5.0/kd-components/_css/reset.css");
+      @import url("../kd-skills v0.5.0/kd-components/_css/button.css");
+      @import url("../kd-skills v0.5.0/kd-components/_css/segmented.css");
+      @import url("../kd-skills v0.5.0/kd-components/_css/navigation-sidebar.css");
+
+      :root {
+        --kd-color-public-normal: rgba(var(--kd-color-indigo-6), 1);
+        --kd-color-public-hover: rgba(var(--kd-color-indigo-5), 1);
+        --kd-color-public-pressed: rgba(var(--kd-color-indigo-7), 1);
+        --kd-color-state-pressed-public: rgba(var(--kd-color-indigo-6), 0.12);
+
+        --app-space-1: 4px;
+        --app-space-2: 8px;
+        --app-space-3: 12px;
+        --app-space-4: 16px;
+        --app-space-5: 20px;
+        --app-space-6: 24px;
+        --app-control-height-m: 34px;
+        --app-icon-size-m: 16px;
+        --app-icon-size-s: 14px;
+        --app-fmt-icon-size: 27px;
+        --app-input-radius: 15px;
+        --app-statusbar-height: 40px;
+        --app-content-bottom-gap: 52px;
+        --app-code-line-height: 1.7;
+        --app-format-active-bg: rgba(var(--kd-color-blue-6), 1);
+        --app-icon-stroke-m: 1.6;
+        --app-dark-control-bg: color-mix(in srgb, var(--kd-color-fill-light) 66%, #000 34%);
+        --app-dark-control-bg-hover: color-mix(in srgb, var(--kd-color-fill-light) 76%, #000 24%);
+        --app-dark-icon-filter: brightness(0) invert(0.92);
+      }
+
+      [data-theme="dark"] {
+        --kd-color-public-normal: rgba(var(--kd-color-indigo-7), 1);
+        --kd-color-public-hover: rgba(var(--kd-color-indigo-8), 1);
+        --kd-color-public-pressed: rgba(var(--kd-color-indigo-6), 1);
+        --app-format-active-bg: rgba(var(--kd-color-blue-5), 1);
+      }
+
+      [data-theme="dark"] .sidebar,
+      [data-theme="dark"] .topbar,
+      [data-theme="dark"] .workspace,
+      [data-theme="dark"] .statusbar {
+        border-color: var(--kd-color-line-medium);
+        background: color-mix(in srgb, var(--kd-color-fill-base) 86%, #000 14%);
+      }
+
+      [data-theme="dark"] .theme-toggle,
+      [data-theme="dark"] .view-icon-btn,
+      [data-theme="dark"] .action-icon-btn.plain,
+      [data-theme="dark"] .icon-btn {
+        color: var(--kd-color-text-primary);
+      }
+
+      [data-theme="dark"] .view-icon-btn,
+      [data-theme="dark"] .action-icon-btn.plain,
+      [data-theme="dark"] .theme-toggle {
+        border-color: var(--kd-color-line-medium);
+        background: var(--app-dark-control-bg);
+      }
+
+      [data-theme="dark"] .icon-btn:hover,
+      [data-theme="dark"] .action-icon-btn.plain:hover,
+      [data-theme="dark"] .view-icon-btn:hover,
+      [data-theme="dark"] .theme-toggle:hover,
+      [data-theme="dark"] .recent-item:hover,
+      [data-theme="dark"] .recent-item.is-menu-open,
+      [data-theme="dark"] .recent-menu-item:hover,
+      [data-theme="dark"] .export-menu button:hover,
+      [data-theme="dark"] .recent-submenu button:hover {
+        background: var(--app-dark-control-bg-hover);
+      }
+
+      [data-theme="dark"] .tool-icon,
+      [data-theme="dark"] .fmt-icon,
+      [data-theme="dark"] .view-icon,
+      [data-theme="dark"] .action-icon {
+        filter: var(--app-dark-icon-filter);
+      }
+
+      [data-theme="dark"] .icon-btn.is-active .fmt-icon {
+        filter: brightness(0) invert(1);
+      }
+
+      [data-theme="dark"] .input-search input,
+      [data-theme="dark"] .hero-dropzone textarea,
+      [data-theme="dark"] .recent-rename-input {
+        border-color: var(--kd-color-line-medium);
+        background: color-mix(in srgb, var(--kd-color-fill-base) 90%, #000 10%);
+      }
+
+      [data-theme="dark"] .recent-menu,
+      [data-theme="dark"] .recent-submenu,
+      [data-theme="dark"] .export-menu,
+      [data-theme="dark"] .lang-menu {
+        border-color: var(--kd-color-line-medium);
+        background: color-mix(in srgb, var(--kd-color-fill-base) 88%, #000 12%);
+      }
+
+      [data-theme="dark"] #previewHost pre {
+        border-color: var(--kd-color-line-medium);
+        background: color-mix(in srgb, var(--kd-color-fill-light) 70%, #000 30%);
+      }
+
+      [data-theme="dark"] #previewHost blockquote {
+        border-left-color: var(--kd-color-public-normal);
+        background: color-mix(in srgb, var(--kd-color-fill-light) 68%, #000 32%);
+        color: var(--kd-color-text-secondary);
+      }
+
+      [data-theme="dark"] #previewHost th {
+        background: color-mix(in srgb, var(--kd-color-fill-light) 74%, #000 26%);
+      }
+
+      [data-theme="dark"] #previewHost th,
+      [data-theme="dark"] #previewHost td {
+        border-color: var(--kd-color-line-medium);
+      }
+
+      [data-theme="dark"] #editorHost .cm-gutters {
+        border-right-color: var(--kd-color-line-medium);
+        background: color-mix(in srgb, var(--kd-color-fill-base) 90%, #000 10%);
+      }
+
+      [data-theme="dark"] .icon-btn.is-inactive .fmt-icon {
+        opacity: 0.35;
+      }
+
+      body {
+        margin: 0;
+        font-family: var(--kd-font-family);
+        font-size: var(--kd-font-size-base);
+        line-height: var(--kd-font-line-height-base);
+        color: var(--kd-color-text-primary);
+        background: var(--kd-color-background-base);
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .app {
+        height: 100%;
+        display: grid;
+        grid-template-columns: 232px 1fr;
+        gap: var(--app-space-3);
+        padding: var(--app-space-3);
+      }
+
+      body[data-app-ready="0"] .app {
+        visibility: hidden;
+      }
+
+      .sidebar {
+        border: 1px solid var(--kd-color-line-regular);
+        border-radius: var(--kd-border-radius-extra-large);
+        background: var(--kd-color-fill-base);
+        box-shadow: var(--kd-box-shadow-small);
+        padding: var(--app-space-4) var(--app-space-3);
+        display: flex;
+        flex-direction: column;
+        gap: var(--app-space-3);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: var(--app-space-2);
+        cursor: pointer;
+      }
+
+      .brand:focus-visible {
+        outline: none;
+        box-shadow: var(--kd-box-shadow-glow);
+        border-radius: var(--kd-border-radius-middle);
+      }
+
+      .brand img {
+        width: 28px;
+        height: 28px;
+        border-radius: var(--kd-border-radius-middle);
+        object-fit: contain;
+      }
+
+      .brand h1 {
+        margin: 0;
+        color: var(--kd-color-public-normal);
+        font-size: var(--kd-font-size-xx-large);
+        line-height: var(--kd-font-line-height-xx-large);
+        font-weight: var(--kd-font-weight-bold);
+      }
+
+      .side-actions {
+        display: flex;
+        flex-direction: column;
+        gap: var(--app-space-2);
+      }
+
+      .side-actions .kd-navigation-item {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 10px;
+        padding-left: var(--app-space-3);
+      }
+
+      .kd-navigation-item__icon svg {
+        width: var(--app-icon-size-s);
+        height: var(--app-icon-size-s);
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 1.4;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .kd-navigation-item__icon img,
+      .kd-button-prefix-icon img {
+        width: var(--app-icon-size-s);
+        height: var(--app-icon-size-s);
+        display: block;
+      }
+
+      .input-search {
+        position: relative;
+      }
+
+      .input-search input {
+        width: 100%;
+        height: 36px;
+        border: 1px solid var(--kd-color-line-medium);
+        border-radius: var(--kd-border-radius-circle);
+        background: var(--kd-color-fill-base);
+        color: var(--kd-color-text-primary);
+        font-size: var(--kd-font-size-sub-base);
+        line-height: var(--kd-line-height-base);
+        padding: 0 var(--app-space-3) 0 36px;
+      }
+
+      .input-search::before {
+        content: "";
+        width: 18px;
+        height: 18px;
+        position: absolute;
+        left: var(--app-space-2);
+        top: 9px;
+        background: no-repeat center / contain url("../kd-skills v0.5.0/kd-components/_icons/magnifier.svg");
+        opacity: var(--kd-opacity-icon-hover);
+      }
+
+      .recent-title {
+        color: var(--kd-color-text-tertiary);
+        font-size: var(--kd-font-size-sub-base);
+        line-height: var(--kd-line-height-base);
+      }
+
+      select,
+      textarea,
+      input {
+        border: 1px solid var(--kd-color-line-medium);
+        border-radius: var(--kd-border-radius-large);
+        background: var(--kd-color-fill-base);
+        color: var(--kd-color-text-primary);
+        font-family: var(--kd-font-family);
+        font-size: var(--kd-font-size-sub-base);
+        line-height: var(--kd-line-height-base);
+      }
+
+      textarea,
+      select {
+        padding: var(--app-space-2) var(--app-space-3);
+      }
+
+      input:focus-visible,
+      select:focus-visible,
+      textarea:focus-visible,
+      .kd-button:focus-visible,
+      .kd-navigation-item:focus-visible {
+        outline: none;
+        border-color: var(--kd-color-line-public);
+        box-shadow: var(--kd-box-shadow-glow);
+      }
+
+      .muted {
+        color: var(--kd-color-text-tertiary);
+        font-size: var(--kd-font-size-small);
+        line-height: var(--kd-line-height-small);
+      }
+
+      .content {
+        height: 100%;
+        min-height: 0;
+        position: relative;
+        display: grid;
+        grid-template-rows: auto auto minmax(0, 1fr);
+        gap: var(--app-space-3);
+        overflow: hidden;
+        padding-bottom: var(--app-content-bottom-gap);
+      }
+
+      .initial-header {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: var(--app-space-2);
+      }
+
+      .theme-toggle {
+        width: var(--app-control-height-m);
+        height: var(--app-control-height-m);
+        border-radius: var(--kd-border-radius-large);
+        border: 1px solid var(--kd-color-line-light);
+        background: #ffffff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .theme-toggle:hover {
+        background: #ffffff;
+        border-color: var(--kd-color-line-regular);
+      }
+
+      .theme-icon {
+        width: 18px;
+        height: 18px;
+      }
+
+      .tool-icon {
+        width: var(--app-icon-size-m);
+        height: var(--app-icon-size-m);
+        display: block;
+      }
+
+      [data-theme="dark"] .theme-toggle {
+        background: transparent;
+        border-color: var(--kd-color-line-medium);
+      }
+
+      [data-theme="dark"] .theme-toggle:hover {
+        background: transparent;
+        border-color: var(--kd-color-line-regular);
+      }
+
+      .topbar {
+        border: 1px solid var(--kd-color-line-regular);
+        border-radius: var(--kd-border-radius-extra-large);
+        background: var(--kd-color-fill-base);
+        box-shadow: var(--kd-box-shadow-small);
+        padding: var(--app-space-3);
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: var(--app-space-3);
+      }
+
+      .topbar-group {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: var(--app-space-2);
+      }
+
+      .icon-toolbar {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .icon-toolbar.hidden {
+        display: none;
+      }
+
+      .icon-btn {
+        width: var(--app-control-height-m);
+        height: var(--app-control-height-m);
+        border: none;
+        border-radius: var(--kd-border-radius-small);
+        background: transparent;
+        color: var(--kd-color-text-primary);
+        font-size: var(--kd-font-size-sub-base);
+        line-height: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .icon-btn:hover {
+        background: var(--kd-color-state-hover);
+      }
+
+      .icon-btn.is-active {
+        background: var(--app-format-active-bg);
+      }
+
+      .icon-btn.is-active .fmt-icon {
+        filter: brightness(0) invert(1);
+      }
+
+      .fmt-icon {
+        width: var(--app-fmt-icon-size);
+        height: var(--app-fmt-icon-size);
+        display: block;
+      }
+
+      .icon-btn.is-inactive .fmt-icon {
+        opacity: 0.45;
+        filter: grayscale(1) saturate(0);
+      }
+
+      #fmtCodeBtn.is-active .fmt-icon {
+        filter: brightness(0) invert(1);
+      }
+
+      .icon-btn[data-tip]:hover::after {
+        content: attr(data-tip);
+        position: absolute;
+        left: 50%;
+        top: calc(100% + 8px);
+        transform: translateX(-50%);
+        min-width: 164px;
+        max-width: 220px;
+        padding: 6px 8px;
+        border-radius: var(--kd-border-radius-large);
+        background: var(--kd-color-feedback-regular);
+        color: var(--kd-color-text-white);
+        font-size: var(--kd-font-size-sub-base);
+        line-height: var(--kd-line-height-small);
+        white-space: pre-line;
+        box-shadow: var(--kd-box-shadow-middle);
+        z-index: 20;
+        pointer-events: none;
+      }
+
+      .icon-btn[data-tip]:hover::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: calc(100% + 5px);
+        transform: translateX(-50%) rotate(45deg);
+        width: 8px;
+        height: 8px;
+        background: var(--kd-color-feedback-regular);
+        z-index: 20;
+        pointer-events: none;
+      }
+
+      .view-icon-btn {
+        width: 36px;
+        min-width: 36px;
+        padding: 0;
+      }
+
+      .view-icon {
+        width: 16px;
+        height: 16px;
+      }
+
+      .action-icon-btn {
+        width: var(--app-control-height-m);
+        min-width: var(--app-control-height-m);
+        height: var(--app-control-height-m);
+        padding: 0;
+      }
+
+      .action-icon-btn.plain {
+        border: none;
+        background: transparent;
+      }
+
+      .action-icon-btn.plain:hover {
+        background: var(--kd-color-state-hover);
+      }
+
+      .action-icon-btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+
+      .action-icon {
+        width: var(--app-icon-size-m);
+        height: var(--app-icon-size-m);
+      }
+
+      .undo-redo-icon {
+        width: 16px;
+        height: 16px;
+        display: block;
+      }
+
+      .undo-redo-icon path {
+        stroke-width: var(--app-icon-stroke-m);
+      }
+
+      .top-action-group {
+        position: relative;
+      }
+
+      .action-icon-btn.plain.lang-btn {
+        width: var(--app-control-height-m);
+        min-width: var(--app-control-height-m);
+        height: var(--app-control-height-m);
+        border: 1px solid var(--kd-color-line-regular);
+        border-radius: var(--kd-border-radius-large);
+        background: #ffffff;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--kd-color-text-primary);
+      }
+
+      .action-icon-btn.plain.lang-btn:hover {
+        background: #ffffff;
+        border-color: var(--kd-color-line-regular);
+      }
+
+      [data-theme="dark"] .action-icon-btn.plain.lang-btn {
+        background: transparent;
+      }
+
+      [data-theme="dark"] .action-icon-btn.plain.lang-btn:hover {
+        background: transparent;
+        border-color: var(--kd-color-line-regular);
+      }
+
+      .lang-btn-icon,
+      .lang-btn-caret {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .lang-btn-icon svg {
+        width: 18px;
+        height: 18px;
+        stroke: currentColor;
+        stroke-width: 1.8;
+        fill: none;
+      }
+
+      .lang-menu {
+        position: absolute;
+        top: calc(100% + 6px);
+        right: 0;
+        min-width: 120px;
+        border: 1px solid var(--kd-color-line-regular);
+        border-radius: var(--kd-border-radius-middle);
+        background: var(--kd-color-fill-base);
+        box-shadow: var(--kd-box-shadow-middle);
+        padding: 4px;
+        display: none;
+        z-index: 12;
+      }
+
+      .lang-menu.is-open {
+        display: block;
+      }
+
+      .lang-menu button {
+        width: 100%;
+        border: none;
+        background: transparent;
+        color: var(--kd-color-text-primary);
+        text-align: left;
+        font-size: var(--kd-font-size-sub-base);
+        line-height: var(--kd-line-height-base);
+        border-radius: var(--kd-border-radius-small);
+        padding: 7px 8px;
+        cursor: pointer;
+      }
+
+      .lang-menu button:hover {
+        background: var(--kd-color-state-hover);
+      }
+
+      .lang-menu button.is-active {
+        color: var(--kd-color-text-brand);
+        background: color-mix(in srgb, var(--kd-color-state-hover) 62%, var(--kd-color-brand-1) 38%);
+      }
+
+      .export-menu {
+        position: absolute;
+        top: calc(100% + 6px);
+        right: 0;
+        min-width: 150px;
+        border: 1px solid var(--kd-color-line-regular);
+        border-radius: var(--kd-border-radius-middle);
+        background: var(--kd-color-fill-base);
+        box-shadow: var(--kd-box-shadow-middle);
+        padding: 4px;
+        display: none;
+        z-index: 12;
+      }
+
+      .export-menu.is-open {
+        display: block;
+      }
+
+      .export-menu button {
+        width: 100%;
+        border: none;
+        background: transparent;
+        color: var(--kd-color-text-primary);
+        text-align: left;
+        font-size: var(--kd-font-size-sub-base);
+        line-height: var(--kd-line-height-base);
+        border-radius: var(--kd-border-radius-small);
+        padding: 7px 8px;
+        cursor: pointer;
+      }
+
+      .export-menu button:hover {
+        background: var(--kd-color-state-hover);
+      }
+
+      .workspace-wrap {
+        min-height: 0;
+        height: 100%;
+        display: grid;
+        grid-template-rows: auto 1fr;
+        gap: var(--app-space-3);
+        overflow: hidden;
+      }
+
+      [data-ui-mode="edit"] .workspace-wrap {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        min-height: 0;
+        height: auto;
+      }
+
+      [data-ui-mode="edit"] .content {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+      }
+
+      [data-ui-mode="edit"] .topbar {
+        flex: 0 0 auto;
+      }
+
+      [data-ui-mode="initial"] .workspace-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 20vh;
+      }
+
+      .hero {
+        border: none;
+        border-radius: var(--kd-border-radius-extra-large);
+        background: transparent;
+        box-shadow: none;
+        padding: 0;
+        width: min(1040px, 100%);
+      }
+
+      .hero h2 {
+        margin: 0 0 40px;
+        color: var(--kd-color-public-normal);
+        text-align: center;
+        font-size: 50px;
+        line-height: var(--kd-font-line-height-xxx-large);
+        font-weight: var(--kd-font-weight-bold);
+        transform: translateX(-36px);
+      }
+
+      .hero-upload {
+        max-width: 640px;
+        margin: 0 auto;
+        transform: translateX(-36px);
+      }
+
+      .hero-dropzone {
+        position: relative;
+        border: none;
+        border-radius: var(--kd-border-radius-large);
+        padding: 0;
+        transition: var(--kd-all-transition);
+      }
+
+      .hero-dropzone.is-dragover {
+        box-shadow: var(--kd-box-shadow-glow);
+      }
+
+      .hero-dropzone textarea {
+        display: block;
+        width: 100%;
+        min-height: 44px;
+        max-height: 180px;
+        resize: none;
+        border-radius: var(--app-input-radius);
+        border: 1px solid var(--kd-color-line-medium);
+        background: var(--kd-color-fill-base);
+        padding: var(--app-space-3);
+        padding-right: 90px;
+        padding-bottom: 36px;
+        box-shadow: var(--kd-box-shadow-small);
+        overflow-y: hidden;
+      }
+
+      .hero-dropzone.is-dragover textarea {
+        border-color: var(--kd-color-line-public);
+        min-height: 96px;
+      }
+
+      .hero-upload-btn {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        z-index: 2;
+        width: 34px;
+        min-width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        padding: 0;
+      }
+
+      .hero-upload-btn .kd-button-children {
+        font-size: 20px;
+        line-height: 1;
+      }
+
+      .recent-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--app-space-1);
+      }
+
+      .recent-item {
+        width: 100%;
+        text-align: left;
+        padding: 0;
+        border: 1px solid var(--kd-color-line-light);
+        border-radius: var(--kd-border-radius-middle);
+        color: var(--kd-color-text-secondary);
+        background: transparent;
+        font-size: var(--kd-font-size-sub-base);
+        line-height: var(--kd-line-height-base);
+        cursor: default;
+        position: relative;
+      }
+
+      .recent-item:hover,
+      .recent-item.is-menu-open {
+        background: var(--kd-color-state-hover);
+      }
+
+      .recent-item-main {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: var(--app-space-1);
+        align-items: center;
+        padding: var(--app-space-2) var(--app-space-2) var(--app-space-2) var(--app-space-3);
+        cursor: pointer;
+        color: inherit;
+      }
+
+      .recent-item-name {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        text-align: left;
+      }
+
+      .recent-rename-input {
+        width: 100%;
+        height: 26px;
+        border: 1px solid var(--kd-color-line-public);
+        border-radius: var(--kd-border-radius-small);
+        padding: 0 6px;
+        color: var(--kd-color-text-primary);
+        font-size: var(--kd-font-size-sub-base);
+        line-height: 26px;
+        background: var(--kd-color-fill-base);
+      }
+
+      .recent-item-more {
+        width: 24px;
+        height: 24px;
+        border: none;
+        border-radius: var(--kd-border-radius-small);
+        background: transparent;
+        color: var(--kd-color-text-secondary);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        line-height: 1;
+        cursor: pointer;
+      }
+
+      .recent-item-more:hover {
+        background: var(--kd-color-state-hover);
+      }
+
+      .recent-menu {
+        position: absolute;
+        top: calc(100% + 4px);
+        right: 6px;
+        width: 172px;
+        border: 1px solid var(--kd-color-line-regular);
+        border-radius: var(--kd-border-radius-middle);
+        background: var(--kd-color-fill-base);
+        box-shadow: var(--kd-box-shadow-middle);
+        padding: 4px;
+        display: none;
+        z-index: 10;
+      }
+
+      .recent-item.is-menu-open .recent-menu {
+        display: block;
+      }
+
+      .recent-menu-item {
+        width: 100%;
+        border: none;
+        background: transparent;
+        color: var(--kd-color-text-primary);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 7px 8px;
+        border-radius: var(--kd-border-radius-small);
+        font-size: var(--kd-font-size-sub-base);
+        line-height: var(--kd-line-height-base);
+        cursor: pointer;
+        text-align: left;
+      }
+
+      .recent-menu-item:hover {
+        background: var(--kd-color-state-hover);
+      }
+
+      .recent-menu-item.is-danger {
+        color: var(--kd-color-error-normal);
+      }
+
+      .recent-menu-item.has-submenu {
+        position: relative;
+      }
+
+      .recent-menu-item.has-submenu::after {
+        content: "";
+        position: absolute;
+        right: -8px;
+        top: 0;
+        width: 8px;
+        height: 100%;
+      }
+
+      .recent-submenu {
+        position: absolute;
+        left: 100%;
+        top: -4px;
+        width: 120px;
+        border: 1px solid var(--kd-color-line-regular);
+        border-radius: var(--kd-border-radius-middle);
+        background: var(--kd-color-fill-base);
+        box-shadow: var(--kd-box-shadow-middle);
+        padding: 4px;
+        display: none;
+      }
+
+      .recent-menu-item.has-submenu:hover .recent-submenu {
+        display: block;
+      }
+
+      .recent-submenu button {
+        width: 100%;
+        border: none;
+        background: transparent;
+        color: var(--kd-color-text-primary);
+        border-radius: var(--kd-border-radius-small);
+        padding: 7px 8px;
+        font-size: var(--kd-font-size-sub-base);
+        line-height: var(--kd-line-height-base);
+        text-align: left;
+        cursor: pointer;
+      }
+
+      .recent-submenu button:hover {
+        background: var(--kd-color-state-hover);
+      }
+
+      .recent-empty {
+        color: var(--kd-color-text-tertiary);
+        font-size: var(--kd-font-size-sub-base);
+        line-height: var(--kd-line-height-base);
+        padding: var(--app-space-2) var(--app-space-1);
+      }
+
+      .workspace {
+        min-height: 0;
+        flex: 1 1 auto;
+        height: auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        border: 1px solid var(--kd-color-line-regular);
+        border-radius: var(--kd-border-radius-extra-large);
+        background: var(--kd-color-fill-base);
+        box-shadow: var(--kd-box-shadow-small);
+      }
+
+      .workspace.split {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .panel {
+        min-width: 0;
+        min-height: 0;
+        height: 100%;
+        border-right: 1px solid var(--kd-color-line-regular);
+      }
+
+      .panel:last-child {
+        border-right: none;
+      }
+
+      .panel-header {
+        display: none;
+      }
+
+      .panel-body {
+        height: 100%;
+        overflow: auto;
+      }
+
+      #editorHost {
+        height: 100%;
+        min-height: 280px;
+      }
+
+      #editorHost .cm-editor {
+        height: 100%;
+      }
+
+      #editorHost .cm-scroller {
+        overflow: auto;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        line-height: var(--app-code-line-height);
+      }
+
+      #editorHost .cm-gutters {
+        padding-left: var(--app-space-2);
+      }
+
+      #editorHost .cm-content {
+        min-height: 100%;
+        caret-color: var(--kd-color-text-primary);
+        padding: var(--app-space-3) var(--app-space-5) 24px calc(var(--app-space-6) + 2px);
+      }
+
+      #editorHost .cm-line {
+        padding-right: var(--app-space-2);
+      }
+
+      #editorHost .cm-focused {
+        outline: none;
+      }
+
+      #previewHost {
+        padding: var(--app-space-4) var(--app-space-5) var(--app-space-4) calc(var(--app-space-6) + 2px);
+        color: var(--kd-color-text-primary);
+        min-height: 100%;
+        outline: none;
+      }
+
+      #previewHost.preview-editing {
+        box-shadow: inset 0 0 0 1px var(--kd-color-line-public);
+        border-radius: var(--kd-border-radius-middle);
+      }
+
+      #previewHost p {
+        white-space: pre-wrap;
+        margin: 0 0 var(--app-space-2);
+      }
+
+      #previewHost p:last-child {
+        margin-bottom: 0;
+      }
+
+      #previewHost ul,
+      #previewHost ol {
+        margin: var(--app-space-2) 0;
+        padding-left: calc(var(--app-space-6) + 4px);
+      }
+
+      #previewHost ol {
+        list-style-type: decimal;
+      }
+
+      #previewHost ol ol {
+        list-style-type: lower-alpha;
+      }
+
+      #previewHost ol ol ol {
+        list-style-type: lower-roman;
+      }
+
+      #previewHost li {
+        margin: 2px 0;
+      }
+
+      #previewHost h1,
+      #previewHost h2,
+      #previewHost h3,
+      #previewHost h4,
+      #previewHost h5,
+      #previewHost h6 {
+        margin-top: var(--app-space-4);
+      }
+
+      #previewHost pre {
+        margin: var(--app-space-4) 0;
+        overflow: auto;
+        border: 1px solid var(--kd-color-line-light);
+        border-radius: var(--kd-border-radius-large);
+        background: var(--kd-color-fill-light);
+        padding: var(--app-space-4);
+      }
+
+      #previewHost blockquote {
+        margin: var(--app-space-3) 0;
+        padding: var(--app-space-1) 0 var(--app-space-1) var(--app-space-3);
+        border-left: 3px solid var(--kd-color-line-public);
+        color: var(--kd-color-text-secondary);
+        background: color-mix(in srgb, var(--kd-color-fill-light) 84%, transparent);
+        border-radius: var(--kd-border-radius-small);
+      }
+
+      #previewHost table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: var(--app-space-4) 0;
+      }
+
+      #previewHost th,
+      #previewHost td {
+        border: 1px solid var(--kd-color-line-regular);
+        padding: var(--app-space-3) var(--app-space-4);
+      }
+
+      .statusbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: var(--app-space-3);
+        height: var(--app-statusbar-height);
+        min-height: var(--app-statusbar-height);
+        max-height: var(--app-statusbar-height);
+        padding: 0 var(--app-space-3);
+        border: 1px solid var(--kd-color-line-regular);
+        border-radius: var(--kd-border-radius-extra-large);
+        background: var(--kd-color-fill-base);
+        color: var(--kd-color-text-secondary);
+        font-size: var(--kd-font-size-sub-base);
+        line-height: var(--kd-line-height-base);
+        flex-shrink: 0;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 5;
+      }
+
+      .icon-btn:focus-visible,
+      .action-icon-btn:focus-visible,
+      .theme-toggle:focus-visible,
+      .recent-item-more:focus-visible {
+        outline: none;
+        box-shadow: var(--kd-box-shadow-glow);
+      }
+
+      .statusbar span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .statusbar strong {
+        color: var(--kd-color-text-primary);
+        font-weight: var(--kd-font-weight-bold);
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      @media (max-width: 1200px) {
+        .topbar {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 980px) {
+        .app {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 920px) {
+        .workspace.split {
+          grid-template-columns: 1fr;
+          grid-template-rows: 1fr 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body data-ui-mode="initial" data-app-ready="0">
+    <div class="app">
+      <aside class="sidebar">
+        <div id="brandHome" class="brand" role="button" tabindex="0" aria-label="返回初始页" title="返回初始页">
+          <img
+            src="file:///Users/hwttwendy/.cursor/projects/Users-hwttwendy-L2-Markdown/assets/Logo-ba8120ad-b123-43fe-be2d-50c755bb6169.png"
+            alt="Type MD Logo"
+          />
+          <h1>Type MD</h1>
+        </div>
+
+        <nav class="kd-navigation-vertical side-actions">
+          <button id="newBtn" class="kd-navigation-item is-active">
+            <span class="kd-navigation-item__icon" aria-hidden="true">
+              <img src="./assets/kd-icons/insert.svg" alt="" />
+            </span>
+            <span id="newBtnLabel" class="kd-navigation-item__label">新建</span>
+          </button>
+          <button id="openBtn" class="kd-navigation-item">
+            <span class="kd-navigation-item__icon" aria-hidden="true">
+              <img src="./assets/kd-icons/folder.svg" alt="" />
+            </span>
+            <span id="openBtnLabel" class="kd-navigation-item__label">打开</span>
+          </button>
+          <input id="fileInput" class="hidden" type="file" accept=".md,text/markdown,text/plain" />
+          <div class="input-search">
+            <input
+              id="searchInput"
+              name="wps-md-demo-search"
+              type="search"
+              placeholder="关键词搜索"
+              list="searchHistoryList"
+              autocomplete="off"
+              autocapitalize="off"
+              autocorrect="off"
+              spellcheck="false"
+            />
+            <datalist id="searchHistoryList"></datalist>
+          </div>
+          <span id="recentTitle" class="recent-title">最近文件</span>
+          <div id="recentList" class="recent-list">
+            <span class="recent-empty">无最近文件</span>
+          </div>
+        </nav>
+      </aside>
+
+      <main class="content">
+        <header id="initialHeader" class="initial-header">
+          <button id="initialThemeBtn" class="theme-toggle" type="button" aria-label="切换亮暗模式">
+            <img id="initialThemeIcon" class="theme-icon tool-icon" src="./assets/kd-icons/sun_yellow.svg" alt="" />
+          </button>
+          <div class="top-action-group lang-action-group">
+            <button id="initialLangBtn" class="kd-button kd-button-secondary kd-button-m action-icon-btn plain lang-btn" type="button" title="语言" aria-label="语言">
+              <span class="lang-btn-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="9"></circle>
+                  <path d="M3 12H21"></path>
+                  <path d="M12 3C14.8 5.9 16.4 8.9 16.4 12C16.4 15.1 14.8 18.1 12 21"></path>
+                  <path d="M12 3C9.2 5.9 7.6 8.9 7.6 12C7.6 15.1 9.2 18.1 12 21"></path>
+                </svg>
+              </span>
+            </button>
+            <div id="initialLangMenu" class="lang-menu">
+              <button type="button" data-lang-option="zh">中文</button>
+              <button type="button" data-lang-option="en">English</button>
+            </div>
+          </div>
+        </header>
+
+        <header class="topbar hidden">
+          <div class="topbar-group">
+            <div id="viewSegment" class="kd-segmented-controller view-segment" role="tablist" aria-label="编辑视图切换">
+              <div id="viewSourceItem" class="kd-segmented-item">
+                <button id="viewSourceBtn" class="kd-button kd-button-light kd-button-m view-icon-btn" type="button" title="源码视图" aria-label="源码视图">
+                  <img class="view-icon tool-icon" src="./assets/kd-icons/code_ai.svg" alt="" />
+                </button>
+              </div>
+              <div id="viewPreviewItem" class="kd-segmented-item">
+                <button id="viewPreviewBtn" class="kd-button kd-button-light kd-button-m view-icon-btn" type="button" title="预览视图" aria-label="预览视图">
+                  <img class="view-icon tool-icon" src="./assets/kd-icons/eye.svg" alt="" />
+                </button>
+              </div>
+              <div id="viewSplitItem" class="kd-segmented-item">
+                <button id="viewSplitBtn" class="kd-button kd-button-light kd-button-m view-icon-btn" type="button" title="分栏视图" aria-label="分栏视图">
+                  <img class="view-icon tool-icon" src="./assets/kd-icons/columns_view_two.svg" alt="" />
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="topbar-group">
+            <div id="richToolbar" class="icon-toolbar hidden">
+              <button id="fmtBoldBtn" class="icon-btn" type="button" aria-label="加粗" data-tip="加粗（⌘B）&#10;Markdown: **文本** 空格"><img class="fmt-icon" src="./assets/kd-icons/加粗.svg" alt="" /></button>
+              <button id="fmtItalicBtn" class="icon-btn" type="button" aria-label="斜体" data-tip="斜体（⌘I）&#10;Markdown: *文本* 空格"><img class="fmt-icon" src="./assets/kd-icons/斜体.svg" alt="" /></button>
+              <button id="fmtStrikeBtn" class="icon-btn" type="button" aria-label="删除线" data-tip="删除线（⌘Shift+X）&#10;Markdown: ~~文本~~ 空格"><img class="fmt-icon" src="./assets/kd-icons/删除线.svg" alt="" /></button>
+              <button id="fmtUnderlineBtn" class="icon-btn" type="button" aria-label="下划线" data-tip="下划线（⌘U）&#10;Markdown: &lt;u&gt;文本&lt;/u&gt;"><img class="fmt-icon" src="./assets/kd-icons/下划线.svg" alt="" /></button>
+              <button id="fmtOrderedBtn" class="icon-btn" type="button" aria-label="有序列表" data-tip="有序（⌘Shift+U）&#10;Markdown: 1. 空格"><img class="fmt-icon" src="./assets/kd-icons/有序.svg" alt="" /></button>
+              <button id="fmtUnorderedBtn" class="icon-btn" type="button" aria-label="无序列表" data-tip="无序（⌘Shift+Y）&#10;Markdown: - 空格"><img class="fmt-icon" src="./assets/kd-icons/无序列表.svg" alt="" /></button>
+              <button id="fmtQuoteBtn" class="icon-btn" type="button" aria-label="引用" data-tip="引用（⌘Shift+&gt;）&#10;Markdown: &gt; 空格"><img class="fmt-icon" src="./assets/kd-icons/引用.svg" alt="" /></button>
+              <button id="fmtCodeBtn" class="icon-btn is-inactive" type="button" aria-label="行内代码" data-tip="行内代码（Ctrl+E/⌘E）&#10;Markdown: `文本` 空格"><img class="fmt-icon" src="./assets/kd-icons/行内代码.svg" alt="" /></button>
+            </div>
+          </div>
+          <div class="topbar-group">
+            <div id="historyActions" class="topbar-group hidden">
+              <button id="undoBtn" class="kd-button kd-button-secondary kd-button-m action-icon-btn plain" type="button" title="上一步" aria-label="上一步">
+                <svg class="undo-redo-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M9 7L4 12L9 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path d="M20 12H4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+                </svg>
+              </button>
+              <button id="redoBtn" class="kd-button kd-button-secondary kd-button-m action-icon-btn plain" type="button" title="下一步" aria-label="下一步">
+                <svg class="undo-redo-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M15 7L20 12L15 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path d="M4 12H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+                </svg>
+              </button>
+            </div>
+            <button id="copyBtn" class="kd-button kd-button-secondary kd-button-m action-icon-btn plain" type="button" title="复制" aria-label="复制">
+              <img class="action-icon tool-icon" src="./assets/kd-icons/copy.svg" alt="" />
+            </button>
+            <button id="downloadBtn" class="kd-button kd-button-secondary kd-button-m action-icon-btn plain" type="button" title="下载" aria-label="下载">
+              <img class="action-icon tool-icon" src="./assets/kd-icons/download.svg" alt="" />
+            </button>
+            <div class="top-action-group export-action-group">
+              <button id="exportBtn" class="kd-button kd-button-secondary kd-button-m action-icon-btn plain" type="button" title="导出" aria-label="导出">
+                <img class="action-icon tool-icon" src="./assets/kd-icons/share_to.svg" alt="" />
+              </button>
+              <div id="exportMenu" class="export-menu">
+                <button type="button" data-export-action="md">.md</button>
+                <button type="button" data-export-action="txt">.txt</button>
+                <button type="button" data-export-action="pdf">.pdf</button>
+                <button type="button" data-export-action="docx">.docx</button>
+                <button type="button" data-export-action="html">.html</button>
+              </div>
+            </div>
+            <button id="deleteBtn" class="kd-button kd-button-light kd-button-danger kd-button-m action-icon-btn" type="button" title="删除" aria-label="删除">
+              <img class="action-icon tool-icon" src="./assets/kd-icons/trash_can.svg" alt="" />
+            </button>
+            <button id="themeBtn" class="theme-toggle" type="button" aria-label="切换亮暗模式">
+              <img id="themeIcon" class="theme-icon tool-icon" src="./assets/kd-icons/sun_yellow.svg" alt="" />
+            </button>
+            <div class="top-action-group lang-action-group">
+              <button id="langBtn" class="kd-button kd-button-secondary kd-button-m action-icon-btn plain lang-btn" type="button" title="语言" aria-label="语言">
+                <span class="lang-btn-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="M3 12H21"></path>
+                    <path d="M12 3C14.8 5.9 16.4 8.9 16.4 12C16.4 15.1 14.8 18.1 12 21"></path>
+                    <path d="M12 3C9.2 5.9 7.6 8.9 7.6 12C7.6 15.1 9.2 18.1 12 21"></path>
+                  </svg>
+                </span>
+              </button>
+              <div id="langMenu" class="lang-menu">
+                <button type="button" data-lang-option="zh">中文</button>
+                <button type="button" data-lang-option="en">English</button>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section class="workspace-wrap">
+          <div id="hero" class="hero">
+            <h2 id="heroTitle">Markdown编辑 轻而易举</h2>
+            <div class="hero-upload">
+              <div id="dropZone" class="hero-dropzone">
+                <textarea id="importInput" placeholder="在这里粘贴 Markdown 文本，或把 .md 文件拖动到输入框中"></textarea>
+                <button id="uploadBtn" class="kd-button kd-button-primary kd-button-m hero-upload-btn" type="button">
+                  <span class="kd-button-children" aria-hidden="true">↑</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <section id="workspace" class="workspace split hidden">
+            <article id="sourcePanel" class="panel">
+              <div id="sourcePanelTitle" class="panel-header">Markdown 源码（可编辑）</div>
+              <div class="panel-body">
+                <div id="editorHost"></div>
+              </div>
+            </article>
+
+            <article id="previewPanel" class="panel">
+              <div id="previewPanelTitle" class="panel-header">预览（只读）</div>
+              <div id="previewBody" class="panel-body">
+                <div id="previewHost"></div>
+              </div>
+            </article>
+          </section>
+        </section>
+
+        <footer class="statusbar hidden">
+          <span id="charCount"><strong>字符数：</strong>0</span>
+          <span id="pathText"><strong>路径：</strong>未选择文件</span>
+        </footer>
+      </main>
+    </div>
+
+    <script type="module">
+      import { EditorState } from "https://esm.sh/@codemirror/state@6.7.1";
+      import { EditorView, keymap, lineNumbers } from "https://esm.sh/@codemirror/view@6.28.2?deps=@codemirror/state@6.7.1";
+      import { history, historyKeymap, defaultKeymap } from "https://esm.sh/@codemirror/commands@6.6.0?deps=@codemirror/state@6.7.1";
+      import { searchKeymap } from "https://esm.sh/@codemirror/search@6.5.7?deps=@codemirror/state@6.7.1";
+      import { markdown } from "https://esm.sh/@codemirror/lang-markdown@6.2.5?deps=@codemirror/state@6.7.1";
+      import MarkdownIt from "https://esm.sh/markdown-it@14.1.0";
+      import TurndownService from "https://esm.sh/turndown@7.2.0";
+      import { gfm } from "https://esm.sh/turndown-plugin-gfm@1.0.2";
+      import DOMPurify from "https://esm.sh/dompurify@3.1.6";
+      import { jsPDF } from "https://esm.sh/jspdf@2.5.1";
+      import { Document, Packer, Paragraph, HeadingLevel } from "https://esm.sh/docx@8.5.0";
+
+      const STORAGE_KEY = "wps-md-editor.current";
+      const RECENT_KEY = "wps-md-editor.recent";
+      const SEARCH_HISTORY_KEY = "wps-md-editor.search-history";
+      const THEME_KEY = "wps-md-editor.theme";
+      const LANG_KEY = "wps-md-editor.lang";
+      const defaultDoc = "";
+      const PRESET_DOCS = [
+        {
+          name: "产品功能介绍.md",
+          path: "02_demo/docs/产品功能介绍.md",
+          url: "./docs/产品功能介绍.md",
+          embedded: [
+            "# 产品功能介绍",
+            "",
+            "## 产品定位",
+            "",
+            "本地 HTML Markdown 编辑器用于支持「本地优先、结构化写作、快速导出」的办公场景。",
+            "",
+            "## 已实现核心能力",
+            "",
+            "- 三视图编辑：`Source / Preview / Split`",
+            "- 预览区可编辑并回写 Markdown",
+            "- 富文本快捷操作：加粗、斜体、删除线、下划线、列表、引用、行内代码",
+            "- 本地导入：文件选择、拖拽导入、粘贴导入",
+            "- 多格式导出：`md / txt / html / pdf / docx`",
+            "- 中英切换与亮暗主题",
+            "",
+            "## 适用场景",
+            "",
+            "1. AI 生成 Markdown 初稿后快速修订",
+            "2. 团队内文档标准化编写与导出分发",
+            "3. 政企/教育等本地合规写作场景",
+            "",
+            "## 注意事项",
+            "",
+            "> 当前版本不包含“用 WPS 打开”“分享至 WPS 协作”，规划在后续迭代。"
+          ].join("\n"),
+          fallback: "# 产品功能介绍\n\n预设文档加载失败，请检查 docs/产品功能介绍.md。"
+        },
+        {
+          name: "新用户指南.md",
+          path: "02_demo/docs/新用户指南.md",
+          url: "./docs/新用户指南.md",
+          embedded: [
+            "# 新用户指南",
+            "",
+            "## 1. 快速开始",
+            "",
+            "### 方式 A：新建文稿",
+            "",
+            "点击左侧「新建」，立即进入分栏编辑模式。",
+            "",
+            "### 方式 B：导入本地文件",
+            "",
+            "- 点击左侧「打开」选择 `.md` 文件",
+            "- 或将 `.md` 文件拖拽到首页输入框",
+            "",
+            "### 方式 C：粘贴导入",
+            "",
+            "将 Markdown 文本粘贴到首页输入框，点击上传按钮。",
+            "",
+            "## 2. 编辑与预览",
+            "",
+            "- `Source`：适合精确编辑语法",
+            "- `Preview`：适合所见即所得编辑",
+            "- `Split`：边写边看，适合校对结构",
+            "",
+            "## 3. 导出交付",
+            "",
+            "点击顶部导出按钮，支持：",
+            "",
+            "- `.md`",
+            "- `.txt`",
+            "- `.html`",
+            "- `.pdf`",
+            "- `.docx`",
+            "",
+            "## 4. 常见问题",
+            "",
+            "### 预览区富文本按钮为什么有时是灰色？",
+            "",
+            "行内代码按钮需要先选中文本后才可用。"
+          ].join("\n"),
+          fallback: "# 新用户指南\n\n预设文档加载失败，请检查 docs/新用户指南.md。"
+        }
+      ];
+      const LEGACY_PRESET_PATHS = new Set([
+        "02_demo/docs/doc1.md",
+        "02_demo/docs/doc2.md",
+        "02_demo/docs/doc3.md",
+        "02_demo/docs/团队知识库模板.md",
+        "02_demo/docs/团队知识库模版.md"
+      ]);
+
+      const I18N = {
+        zh: {
+          navNew: "新建",
+          navOpen: "打开",
+          searchPlaceholder: "关键词搜索",
+          recentTitle: "最近文件",
+          noRecent: "无最近文件",
+          noMatch: "无匹配文件",
+          uiTitle: "Markdown编辑 轻而易举",
+          viewSwitchAria: "编辑视图切换",
+          viewSource: "源码视图",
+          viewPreview: "预览视图",
+          viewSplit: "分栏视图",
+          sourcePanelTitle: "Markdown 源码（可编辑）",
+          previewPanelTitle: "预览（可编辑）",
+          undo: "上一步",
+          redo: "下一步",
+          copy: "复制",
+          download: "下载",
+          export: "导出",
+          delete: "删除",
+          language: "语言",
+          importPlaceholder: "在这里粘贴 Markdown 文本，或把 .md 文件拖动到输入框中",
+          menuRename: "重命名",
+          menuDuplicate: "创建副本",
+          menuMore: "更多",
+          menuExport: "导出",
+          menuDelete: "删除",
+          draftBase: "新建文稿",
+          localNewPrefix: "本地新建",
+          localImportFile: "本地导入文件",
+          pasteImport: "粘贴导入",
+          dragImport: "拖拽导入",
+          statusCharCount: "字符数：",
+          statusPath: "路径：",
+          pathNotSelected: "未选择文件",
+          themeToDark: "切换到暗色模式",
+          themeToLight: "切换到亮色模式",
+          fmtBold: "加粗（⌘B）\nMarkdown: **文本** 空格",
+          fmtItalic: "斜体（⌘I）\nMarkdown: *文本* 空格",
+          fmtStrike: "删除线（⌘Shift+X）\nMarkdown: ~~文本~~ 空格",
+          fmtUnderline: "下划线（⌘U）\nMarkdown: <u>文本</u>",
+          fmtOrdered: "有序（⌘Shift+U）\nMarkdown: 1. 空格",
+          fmtUnordered: "无序（⌘Shift+Y）\nMarkdown: - 空格",
+          fmtQuote: "引用（⌘Shift+>）\nMarkdown: > 空格",
+          fmtCode: "行内代码（Ctrl+E/⌘E）\nMarkdown: `文本` 空格",
+          unsupportedFile: "仅支持 Markdown 文本或 .md 文件。",
+          confirmDelete: "确认删除当前内容？此操作会清空编辑器内容。",
+          exportFailed: "导出失败，请重试。"
+        },
+        en: {
+          navNew: "New",
+          navOpen: "Open",
+          searchPlaceholder: "Search by keyword",
+          recentTitle: "Recent Files",
+          noRecent: "No recent files",
+          noMatch: "No matching files",
+          uiTitle: "Markdown Editing Made Easy",
+          viewSwitchAria: "Editor view switch",
+          viewSource: "Source View",
+          viewPreview: "Preview View",
+          viewSplit: "Split View",
+          sourcePanelTitle: "Markdown Source (Editable)",
+          previewPanelTitle: "Preview (Editable)",
+          undo: "Undo",
+          redo: "Redo",
+          copy: "Copy",
+          download: "Download",
+          export: "Export",
+          delete: "Delete",
+          language: "Language",
+          importPlaceholder: "Paste Markdown text here, or drag and drop a .md file into the input box",
+          menuRename: "Rename",
+          menuDuplicate: "Duplicate",
+          menuMore: "More",
+          menuExport: "Export",
+          menuDelete: "Delete",
+          draftBase: "New Draft",
+          localNewPrefix: "Local New",
+          localImportFile: "Local Imported File",
+          pasteImport: "Pasted Import",
+          dragImport: "Drag Import",
+          statusCharCount: "Characters: ",
+          statusPath: "Path: ",
+          pathNotSelected: "No file selected",
+          themeToDark: "Switch to dark mode",
+          themeToLight: "Switch to light mode",
+          fmtBold: "Bold (⌘B)\nMarkdown: **text**",
+          fmtItalic: "Italic (⌘I)\nMarkdown: *text*",
+          fmtStrike: "Strikethrough (⌘Shift+X)\nMarkdown: ~~text~~",
+          fmtUnderline: "Underline (⌘U)\nMarkdown: <u>text</u>",
+          fmtOrdered: "Ordered List (⌘Shift+U)\nMarkdown: 1. space",
+          fmtUnordered: "Unordered List (⌘Shift+Y)\nMarkdown: - space",
+          fmtQuote: "Quote (⌘Shift+>)\nMarkdown: > space",
+          fmtCode: "Inline Code (Ctrl+E/⌘E)\nMarkdown: `text`",
+          unsupportedFile: "Only Markdown text or .md files are supported.",
+          confirmDelete: "Delete current content? This action clears editor content.",
+          exportFailed: "Export failed. Please try again."
+        }
+      };
+
+      const md = new MarkdownIt({
+        html: true,
+        linkify: true,
+        breaks: false
+      });
+
+      const turndown = new TurndownService({
+        headingStyle: "atx",
+        codeBlockStyle: "fenced",
+        emDelimiter: "*",
+        bulletListMarker: "-",
+        paragraphSeparator: "\n"
+      });
+      turndown.use(gfm);
+      turndown.addRule("underlineKeepHtml", {
+        filter: "u",
+        replacement(content) {
+          return `<u>${content}</u>`;
+        }
+      });
+
+      const dom = {
+        brandHome: document.getElementById("brandHome"),
+        newBtn: document.getElementById("newBtn"),
+        openBtn: document.getElementById("openBtn"),
+        fileInput: document.getElementById("fileInput"),
+        initialHeader: document.getElementById("initialHeader"),
+        initialThemeBtn: document.getElementById("initialThemeBtn"),
+        initialThemeIcon: document.getElementById("initialThemeIcon"),
+        initialLangBtn: document.getElementById("initialLangBtn"),
+        initialLangMenu: document.getElementById("initialLangMenu"),
+        newBtnLabel: document.getElementById("newBtnLabel"),
+        openBtnLabel: document.getElementById("openBtnLabel"),
+        recentTitle: document.getElementById("recentTitle"),
+        heroTitle: document.getElementById("heroTitle"),
+        viewSegment: document.getElementById("viewSegment"),
+        importInput: document.getElementById("importInput"),
+        uploadBtn: document.getElementById("uploadBtn"),
+        dropZone: document.getElementById("dropZone"),
+        recentList: document.getElementById("recentList"),
+        viewSourceBtn: document.getElementById("viewSourceBtn"),
+        viewSourceItem: document.getElementById("viewSourceItem"),
+        viewPreviewBtn: document.getElementById("viewPreviewBtn"),
+        viewPreviewItem: document.getElementById("viewPreviewItem"),
+        viewSplitBtn: document.getElementById("viewSplitBtn"),
+        viewSplitItem: document.getElementById("viewSplitItem"),
+        themeBtn: document.getElementById("themeBtn"),
+        themeIcon: document.getElementById("themeIcon"),
+        searchInput: document.getElementById("searchInput"),
+        searchHistoryList: document.getElementById("searchHistoryList"),
+        fmtBoldBtn: document.getElementById("fmtBoldBtn"),
+        fmtItalicBtn: document.getElementById("fmtItalicBtn"),
+        fmtStrikeBtn: document.getElementById("fmtStrikeBtn"),
+        fmtUnderlineBtn: document.getElementById("fmtUnderlineBtn"),
+        fmtOrderedBtn: document.getElementById("fmtOrderedBtn"),
+        fmtUnorderedBtn: document.getElementById("fmtUnorderedBtn"),
+        fmtQuoteBtn: document.getElementById("fmtQuoteBtn"),
+        fmtCodeBtn: document.getElementById("fmtCodeBtn"),
+        richToolbar: document.getElementById("richToolbar"),
+        historyActions: document.getElementById("historyActions"),
+        undoBtn: document.getElementById("undoBtn"),
+        redoBtn: document.getElementById("redoBtn"),
+        copyBtn: document.getElementById("copyBtn"),
+        downloadBtn: document.getElementById("downloadBtn"),
+        exportBtn: document.getElementById("exportBtn"),
+        exportMenu: document.getElementById("exportMenu"),
+        deleteBtn: document.getElementById("deleteBtn"),
+        langBtn: document.getElementById("langBtn"),
+        langMenu: document.getElementById("langMenu"),
+        topbar: document.querySelector(".topbar"),
+        workspace: document.getElementById("workspace"),
+        sourcePanel: document.getElementById("sourcePanel"),
+        editorHost: document.getElementById("editorHost"),
+        previewPanel: document.getElementById("previewPanel"),
+        previewBody: document.getElementById("previewBody"),
+        previewHost: document.getElementById("previewHost"),
+        sourcePanelTitle: document.getElementById("sourcePanelTitle"),
+        previewPanelTitle: document.getElementById("previewPanelTitle"),
+        hero: document.getElementById("hero"),
+        statusbar: document.querySelector(".statusbar"),
+        charCount: document.getElementById("charCount"),
+        pathText: document.getElementById("pathText")
+      };
+
+      const appState = {
+        markdown: "",
+        viewMode: "split",
+        uiMode: "initial",
+        theme: localStorage.getItem(THEME_KEY) || "light",
+        lang: localStorage.getItem(LANG_KEY) || "zh",
+        meta: { name: "untitled.md", path: "" }
+      };
+
+      let isSyncing = false;
+      let view = null;
+      let pendingDropFile = null;
+      let openRecentMenuId = null;
+      let editingRecentId = null;
+      let exportMenuOpen = false;
+      let langMenuOpen = false;
+      let activeEditorType = "source";
+      let isApplyingPreviewToSource = false;
+      let suppressEditorScrollSync = false;
+      let previewSyncTimer = null;
+      let previewSyncSeq = 0;
+      let isApplyingHistoryState = false;
+      let editHistory = [""];
+      let historyIndex = 0;
+      const richButtons = {
+        bold: document.getElementById("fmtBoldBtn"),
+        italic: document.getElementById("fmtItalicBtn"),
+        strike: document.getElementById("fmtStrikeBtn"),
+        underline: document.getElementById("fmtUnderlineBtn"),
+        ordered: document.getElementById("fmtOrderedBtn"),
+        unordered: document.getElementById("fmtUnorderedBtn"),
+        quote: document.getElementById("fmtQuoteBtn"),
+        code: document.getElementById("fmtCodeBtn")
+      };
+
+      function t(key) {
+        return I18N[appState.lang]?.[key] ?? I18N.zh[key] ?? key;
+      }
+
+      function getRecentList() {
+        try {
+          const parsed = JSON.parse(localStorage.getItem(RECENT_KEY) || "[]");
+          return parsed
+            .map((item, idx) => ({
+              id: item.id || `${item.ts || Date.now()}-${idx}`,
+              ...item,
+              ts: item.ts || Date.now()
+            }))
+            .sort((a, b) => b.ts - a.ts);
+        } catch {
+          return [];
+        }
+      }
+
+      function setRecentList(list) {
+        localStorage.setItem(RECENT_KEY, JSON.stringify(list));
+      }
+
+      function getSearchHistory() {
+        try {
+          const parsed = JSON.parse(localStorage.getItem(SEARCH_HISTORY_KEY) || "[]");
+          if (!Array.isArray(parsed)) return [];
+          return parsed.filter((item) => typeof item === "string" && item.trim());
+        } catch {
+          return [];
+        }
+      }
+
+      function setSearchHistory(list) {
+        localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(list.slice(0, 10)));
+      }
+
+      function renderSearchHistoryOptions() {
+        const list = getSearchHistory();
+        dom.searchHistoryList.innerHTML = list.map((item) => `<option value="${escapeHtml(item)}"></option>`).join("");
+      }
+
+      function rememberSearchKeyword(raw) {
+        const keyword = String(raw || "").trim();
+        if (!keyword) return;
+        const next = [keyword, ...getSearchHistory().filter((item) => item !== keyword)];
+        setSearchHistory(next);
+        renderSearchHistoryOptions();
+      }
+
+      async function fetchPresetDocContent(preset) {
+        try {
+          const res = await fetch(encodeURI(preset.url), { cache: "no-store" });
+          if (!res.ok) return preset.embedded || preset.fallback;
+          const text = await res.text();
+          return text.trim() ? text : preset.embedded || preset.fallback;
+        } catch {
+          return preset.embedded || preset.fallback;
+        }
+      }
+
+      async function ensurePresetRecentDocs() {
+        const list = getRecentList().filter((item) => {
+          const path = item.path || "";
+          if (LEGACY_PRESET_PATHS.has(path)) return false;
+          return true;
+        });
+        const now = Date.now();
+        const loaded = await Promise.all(
+          PRESET_DOCS.map(async (preset, idx) => ({
+            ...preset,
+            content: await fetchPresetDocContent(preset),
+            ts: now - idx
+          }))
+        );
+
+        loaded.forEach((preset, idx) => {
+          const existingIdx = list.findIndex((item) => item.path === preset.path);
+          const existing = existingIdx >= 0 ? list[existingIdx] : null;
+          const keepExistingContent =
+            !!existing?.content &&
+            !String(existing.content).includes("预设文档加载失败") &&
+            !String(existing.content).includes("Preset file load failed");
+          const nextItem = {
+            ...(existing || {}),
+            id: existing?.id || `preset-${idx + 1}`,
+            name: preset.name,
+            path: preset.path,
+            content: keepExistingContent ? existing.content : preset.content,
+            ts: existing?.ts || preset.ts
+          };
+          if (existingIdx >= 0) {
+            list[existingIdx] = nextItem;
+          } else {
+            list.unshift(nextItem);
+          }
+        });
+
+        setRecentList(list.slice(0, 30));
+        renderRecent();
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function saveRecent(entry) {
+        const list = getRecentList().filter((item) => item.name !== entry.name || item.path !== entry.path);
+        list.unshift({ ...entry, id: `r-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`, ts: Date.now() });
+        setRecentList(list.slice(0, 30));
+        renderRecent();
+      }
+
+      function renderRecent() {
+        const list = getRecentList();
+        const keyword = dom.searchInput.value.trim().toLowerCase();
+        const filtered = keyword
+          ? list.filter((item) => `${item.name || ""}\n${item.content || ""}`.toLowerCase().includes(keyword))
+          : list;
+
+        dom.recentList.innerHTML = "";
+        if (!filtered.length) {
+          dom.recentList.innerHTML = `<span class="recent-empty">${keyword ? t("noMatch") : t("noRecent")}</span>`;
+          return;
+        }
+        dom.recentList.innerHTML = filtered
+          .map(
+            (item) => `
+            <div class="recent-item ${openRecentMenuId === item.id ? "is-menu-open" : ""}" data-recent-id="${item.id}" title="${item.path}">
+              <div class="recent-item-main" data-action="open" data-recent-id="${item.id}" role="button" tabindex="0">
+                ${
+                  editingRecentId === item.id
+                    ? `<input class="recent-rename-input" data-action="rename-inline" data-recent-id="${item.id}" value="${escapeHtml(item.name)}" />`
+                    : `<span class="recent-item-name">${escapeHtml(item.name)}</span>`
+                }
+                <button class="recent-item-more" type="button" data-action="toggle-menu" data-recent-id="${item.id}" aria-label="${t("menuMore")}">⋯</button>
+              </div>
+              <div class="recent-menu">
+                <button class="recent-menu-item" type="button" data-action="rename" data-recent-id="${item.id}">${t("menuRename")}</button>
+                <button class="recent-menu-item" type="button" data-action="duplicate" data-recent-id="${item.id}">${t("menuDuplicate")}</button>
+                <div class="recent-menu-item has-submenu">
+                  <span>${t("menuExport")}</span><span>›</span>
+                  <div class="recent-submenu">
+                    <button type="button" data-action="export" data-format="md" data-recent-id="${item.id}">.md</button>
+                    <button type="button" data-action="export" data-format="pdf" data-recent-id="${item.id}">.pdf</button>
+                    <button type="button" data-action="export" data-format="txt" data-recent-id="${item.id}">.txt</button>
+                    <button type="button" data-action="export" data-format="docx" data-recent-id="${item.id}">.docx</button>
+                    <button type="button" data-action="export" data-format="html" data-recent-id="${item.id}">.html</button>
+                  </div>
+                </div>
+                <button class="recent-menu-item is-danger" type="button" data-action="delete" data-recent-id="${item.id}">${t("menuDelete")}</button>
+              </div>
+            </div>`
+          )
+          .join("");
+
+        if (editingRecentId) {
+          requestAnimationFrame(() => {
+            const input = dom.recentList.querySelector(`[data-action="rename-inline"][data-recent-id="${editingRecentId}"]`);
+            if (!input) return;
+            input.focus();
+            input.select();
+          });
+        }
+      }
+
+      function saveCurrentToStorage() {
+        const payload = {
+          doc: appState.markdown,
+          meta: appState.meta,
+          theme: appState.theme,
+          lang: appState.lang,
+          viewMode: appState.viewMode,
+          uiMode: appState.uiMode,
+          updatedAt: Date.now()
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+      }
+
+      function loadCurrentFromStorage() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return null;
+          return JSON.parse(raw);
+        } catch {
+          return null;
+        }
+      }
+
+      function renderPreview(markdownText) {
+        const unsafeHtml = md.render(markdownText);
+        const safeHtml = DOMPurify.sanitize(unsafeHtml);
+        dom.previewHost.innerHTML = safeHtml;
+      }
+
+      function normalizeEditableHtmlForMarkdown(root) {
+        const clone = root.cloneNode(true);
+        const all = clone.querySelectorAll("*");
+        all.forEach((node) => {
+          node.removeAttribute("style");
+          node.removeAttribute("class");
+          Array.from(node.attributes || []).forEach((attr) => {
+            if (attr.name.startsWith("data-")) node.removeAttribute(attr.name);
+          });
+          if (node.tagName === "B") {
+            const strong = document.createElement("strong");
+            strong.innerHTML = node.innerHTML;
+            node.replaceWith(strong);
+          }
+          if (node.tagName === "I") {
+            const em = document.createElement("em");
+            em.innerHTML = node.innerHTML;
+            node.replaceWith(em);
+          }
+        });
+
+        const divNodes = Array.from(clone.querySelectorAll("div"));
+        divNodes.forEach((div) => {
+          const parentTag = div.parentElement?.tagName;
+          if (parentTag === "LI" || parentTag === "BLOCKQUOTE") return;
+          const p = document.createElement("p");
+          p.innerHTML = div.innerHTML || "<br>";
+          div.replaceWith(p);
+        });
+
+        return clone;
+      }
+
+      function shouldUsePlainTextExtraction(root) {
+        // 纯“行文本+行内样式”场景走按行序列化，避免浏览器把多行并成一段后丢换行
+        return !root.querySelector("h1,h2,h3,h4,h5,h6,ul,ol,li,blockquote,pre,table,hr,img,figure,video,iframe");
+      }
+
+      function markdownFromInlineHtmlSegment(html) {
+        if (!html || !html.trim()) return "";
+        return turndown
+          .turndown(html)
+          .replace(/\r\n/g, "\n")
+          .replace(/\u00A0/g, " ")
+          .replace(/\n{2,}/g, "\n")
+          .replace(/[ \t]+$/gm, "")
+          .trim();
+      }
+
+      function markdownLinesFromParagraphLikeElement(el) {
+        const marker = "__BR_MARK__";
+        const clone = el.cloneNode(true);
+        clone.querySelectorAll("br").forEach((br) => br.replaceWith(marker));
+        return clone.innerHTML.split(marker).map((seg) => markdownFromInlineHtmlSegment(seg));
+      }
+
+      function markdownFromPlainPreview(root) {
+        const lines = [];
+        Array.from(root.childNodes).forEach((node) => {
+          if (node.nodeType === Node.TEXT_NODE) {
+            const textLines = (node.textContent || "")
+              .replace(/\r\n/g, "\n")
+              .replace(/\u00A0/g, " ")
+              .split("\n")
+              .map((line) => line.replace(/[ \t]+$/g, ""));
+            lines.push(...textLines);
+            return;
+          }
+          if (node.nodeType !== Node.ELEMENT_NODE) return;
+          const el = node;
+          if (el.tagName === "BR") {
+            lines.push("");
+            return;
+          }
+          if (el.tagName === "P" || el.tagName === "DIV") {
+            lines.push(...markdownLinesFromParagraphLikeElement(el));
+            return;
+          }
+          const blockMarkdown = turndown.turndown(el.outerHTML || "").replace(/\r\n/g, "\n").trimEnd();
+          if (!blockMarkdown) {
+            lines.push("");
+            return;
+          }
+          lines.push(...blockMarkdown.split("\n"));
+        });
+        const normalized = lines.map((line) => (/^\s*$/.test(line || "") ? "" : line));
+        while (normalized.length > 0 && normalized[0] === "") normalized.shift();
+        while (normalized.length > 0 && normalized[normalized.length - 1] === "") normalized.pop();
+        return normalized.join("\n");
+      }
+
+      function markdownFromPreviewHtml() {
+        const normalizedRoot = normalizeEditableHtmlForMarkdown(dom.previewHost);
+        if (shouldUsePlainTextExtraction(normalizedRoot)) {
+          return markdownFromPlainPreview(normalizedRoot);
+        }
+        return turndown.turndown(normalizedRoot.innerHTML || "");
+      }
+
+      function getPreviewCopyPayload() {
+        const selection = window.getSelection();
+        const hasPreviewSelection =
+          !!selection &&
+          selection.rangeCount > 0 &&
+          !selection.isCollapsed &&
+          dom.previewHost.contains(selection.anchorNode) &&
+          dom.previewHost.contains(selection.focusNode);
+
+        let html = "";
+        let text = "";
+        if (hasPreviewSelection) {
+          const fragment = selection.getRangeAt(0).cloneContents();
+          const wrap = document.createElement("div");
+          wrap.appendChild(fragment);
+          html = wrap.innerHTML;
+          text = wrap.innerText || selection.toString();
+        } else {
+          html = dom.previewHost.innerHTML || "";
+          text = dom.previewHost.innerText || "";
+        }
+        text = text.replace(/\r\n/g, "\n").trimEnd();
+        return { html, text };
+      }
+
+      function syncPreviewToMarkdown(immediate = false) {
+        const seq = ++previewSyncSeq;
+        const commit = () => {
+          if (!immediate && activeEditorType !== "preview") return;
+          if (seq !== previewSyncSeq) return;
+          const converted = markdownFromPreviewHtml();
+          setMarkdown(converted, { fromPreview: true });
+        };
+        if (immediate) {
+          if (previewSyncTimer) clearTimeout(previewSyncTimer);
+          previewSyncTimer = null;
+          commit();
+          return;
+        }
+        if (previewSyncTimer) clearTimeout(previewSyncTimer);
+        previewSyncTimer = setTimeout(() => {
+          previewSyncTimer = null;
+          commit();
+        }, 120);
+      }
+
+      function getSelectionRangeInPreview() {
+        const selection = window.getSelection();
+        if (!selection || selection.rangeCount === 0) return null;
+        const range = selection.getRangeAt(0);
+        if (!dom.previewHost.contains(range.startContainer) || !dom.previewHost.contains(range.endContainer)) {
+          return null;
+        }
+        return range;
+      }
+
+      function closestTag(node, tagName) {
+        let current = node?.nodeType === Node.TEXT_NODE ? node.parentElement : node;
+        while (current && current !== dom.previewHost) {
+          if (current.tagName === tagName) return current;
+          current = current.parentElement;
+        }
+        return null;
+      }
+
+      function closestTags(node, tagNames) {
+        let current = node?.nodeType === Node.TEXT_NODE ? node.parentElement : node;
+        while (current && current !== dom.previewHost) {
+          if (tagNames.includes(current.tagName)) return current;
+          current = current.parentElement;
+        }
+        return null;
+      }
+
+      function isVisualEmpty(node) {
+        if (!node) return true;
+        const text = (node.textContent || "").replace(/\u200B/g, "").trim();
+        if (text.length > 0) return false;
+        return !node.querySelector("img,hr,table,pre,code,input,video,iframe");
+      }
+
+      function placeCaretAtStart(node) {
+        const range = document.createRange();
+        range.selectNodeContents(node);
+        range.collapse(true);
+        const selection = window.getSelection();
+        selection?.removeAllRanges();
+        selection?.addRange(range);
+      }
+
+      function handlePreviewKeydown(event) {
+        if (activeEditorType !== "preview") return;
+
+        if (event.key === "Tab") {
+          const range = getSelectionRangeInPreview();
+          if (!range) return;
+          const inListItem = closestTag(range.startContainer, "LI");
+          if (!inListItem) return;
+          event.preventDefault();
+          document.execCommand(event.shiftKey ? "outdent" : "indent");
+          syncPreviewToMarkdown(true);
+          return;
+        }
+
+        // Enter 行为交由浏览器 contenteditable 默认处理，避免自定义节点操作误删内容。
+      }
+
+      function getScrollRatio(scroller) {
+        const max = Math.max(1, scroller.scrollHeight - scroller.clientHeight);
+        return scroller.scrollTop / max;
+      }
+
+      function setScrollRatio(scroller, ratio) {
+        const max = Math.max(1, scroller.scrollHeight - scroller.clientHeight);
+        scroller.scrollTop = Math.max(0, Math.min(max, ratio * max));
+      }
+
+      function updateStatus() {
+        dom.charCount.innerHTML = `<strong>${t("statusCharCount")}</strong>${appState.markdown.length}`;
+        dom.pathText.innerHTML = `<strong>${t("statusPath")}</strong>${appState.meta.path || t("pathNotSelected")}`;
+      }
+
+      function updateUndoRedoButtons() {
+        const hasEdits = editHistory.length > 1;
+        dom.historyActions.classList.toggle("hidden", !hasEdits);
+        dom.undoBtn.disabled = !hasEdits || historyIndex <= 0;
+        dom.redoBtn.disabled = !hasEdits || historyIndex >= editHistory.length - 1;
+      }
+
+      function resetEditHistory(markdownText) {
+        editHistory = [markdownText];
+        historyIndex = 0;
+        updateUndoRedoButtons();
+      }
+
+      function pushEditHistorySnapshot(markdownText) {
+        if (isApplyingHistoryState) return;
+        if (editHistory[historyIndex] === markdownText) {
+          updateUndoRedoButtons();
+          return;
+        }
+        if (historyIndex < editHistory.length - 1) {
+          editHistory = editHistory.slice(0, historyIndex + 1);
+        }
+        editHistory.push(markdownText);
+        historyIndex = editHistory.length - 1;
+        updateUndoRedoButtons();
+      }
+
+      function applyHistoryState(nextIndex) {
+        if (nextIndex < 0 || nextIndex >= editHistory.length || nextIndex === historyIndex) return;
+        historyIndex = nextIndex;
+        isApplyingHistoryState = true;
+        setMarkdown(editHistory[historyIndex], { fromHistory: true });
+        isApplyingHistoryState = false;
+        updateUndoRedoButtons();
+      }
+
+      function setUiMode(mode) {
+        appState.uiMode = mode;
+        document.body.dataset.uiMode = mode;
+        const isInitial = mode === "initial";
+
+        dom.initialHeader.classList.toggle("hidden", !isInitial);
+        dom.hero.classList.toggle("hidden", !isInitial);
+        dom.topbar.classList.toggle("hidden", isInitial);
+        dom.workspace.classList.toggle("hidden", isInitial);
+        dom.statusbar.classList.toggle("hidden", isInitial);
+        if (!isInitial) {
+          requestAnimationFrame(() => {
+            view?.focus();
+          });
+        }
+        saveCurrentToStorage();
+        updateUndoRedoButtons();
+      }
+
+      function setActiveEditorType(type) {
+        activeEditorType = type;
+        if (type === "source" && previewSyncTimer) {
+          clearTimeout(previewSyncTimer);
+          previewSyncTimer = null;
+        }
+        if (type === "source") {
+          previewSyncSeq += 1;
+        }
+        const previewAvailable = appState.viewMode !== "source" && appState.uiMode === "edit";
+        const showRich = previewAvailable && activeEditorType === "preview";
+        dom.richToolbar.classList.toggle("hidden", !showRich);
+        dom.previewHost.classList.toggle("preview-editing", showRich);
+      }
+
+      function setExportMenuOpen(open) {
+        exportMenuOpen = open;
+        dom.exportMenu.classList.toggle("is-open", open);
+      }
+
+      function setLangMenuOpen(open) {
+        langMenuOpen = open;
+        dom.langMenu.classList.toggle("is-open", open);
+        dom.initialLangMenu.classList.toggle("is-open", open);
+        dom.langBtn.classList.toggle("is-open", open);
+        dom.initialLangBtn.classList.toggle("is-open", open);
+      }
+
+      function applyLanguage(lang) {
+        appState.lang = lang === "en" ? "en" : "zh";
+        localStorage.setItem(LANG_KEY, appState.lang);
+        document.documentElement.lang = appState.lang === "en" ? "en" : "zh-CN";
+        dom.newBtnLabel.textContent = t("navNew");
+        dom.openBtnLabel.textContent = t("navOpen");
+        dom.searchInput.placeholder = t("searchPlaceholder");
+        dom.recentTitle.textContent = t("recentTitle");
+        dom.heroTitle.textContent = t("uiTitle");
+        dom.importInput.placeholder = t("importPlaceholder");
+        dom.viewSegment.setAttribute("aria-label", t("viewSwitchAria"));
+        dom.viewSourceBtn.title = t("viewSource");
+        dom.viewSourceBtn.setAttribute("aria-label", t("viewSource"));
+        dom.viewPreviewBtn.title = t("viewPreview");
+        dom.viewPreviewBtn.setAttribute("aria-label", t("viewPreview"));
+        dom.viewSplitBtn.title = t("viewSplit");
+        dom.viewSplitBtn.setAttribute("aria-label", t("viewSplit"));
+        dom.sourcePanelTitle.textContent = t("sourcePanelTitle");
+        dom.previewPanelTitle.textContent = t("previewPanelTitle");
+        dom.fmtBoldBtn.setAttribute("aria-label", t("fmtBold").split("\n")[0]);
+        dom.fmtBoldBtn.dataset.tip = t("fmtBold");
+        dom.fmtItalicBtn.setAttribute("aria-label", t("fmtItalic").split("\n")[0]);
+        dom.fmtItalicBtn.dataset.tip = t("fmtItalic");
+        dom.fmtStrikeBtn.setAttribute("aria-label", t("fmtStrike").split("\n")[0]);
+        dom.fmtStrikeBtn.dataset.tip = t("fmtStrike");
+        dom.fmtUnderlineBtn.setAttribute("aria-label", t("fmtUnderline").split("\n")[0]);
+        dom.fmtUnderlineBtn.dataset.tip = t("fmtUnderline");
+        dom.fmtOrderedBtn.setAttribute("aria-label", t("fmtOrdered").split("\n")[0]);
+        dom.fmtOrderedBtn.dataset.tip = t("fmtOrdered");
+        dom.fmtUnorderedBtn.setAttribute("aria-label", t("fmtUnordered").split("\n")[0]);
+        dom.fmtUnorderedBtn.dataset.tip = t("fmtUnordered");
+        dom.fmtQuoteBtn.setAttribute("aria-label", t("fmtQuote").split("\n")[0]);
+        dom.fmtQuoteBtn.dataset.tip = t("fmtQuote");
+        dom.fmtCodeBtn.setAttribute("aria-label", t("fmtCode").split("\n")[0]);
+        dom.fmtCodeBtn.dataset.tip = t("fmtCode");
+        dom.undoBtn.title = t("undo");
+        dom.undoBtn.setAttribute("aria-label", t("undo"));
+        dom.redoBtn.title = t("redo");
+        dom.redoBtn.setAttribute("aria-label", t("redo"));
+        dom.copyBtn.title = t("copy");
+        dom.copyBtn.setAttribute("aria-label", t("copy"));
+        dom.downloadBtn.title = t("download");
+        dom.downloadBtn.setAttribute("aria-label", t("download"));
+        dom.exportBtn.title = t("export");
+        dom.exportBtn.setAttribute("aria-label", t("export"));
+        dom.deleteBtn.title = t("delete");
+        dom.deleteBtn.setAttribute("aria-label", t("delete"));
+        dom.langBtn.title = t("language");
+        dom.langBtn.setAttribute("aria-label", t("language"));
+        dom.initialLangBtn.title = t("language");
+        dom.initialLangBtn.setAttribute("aria-label", t("language"));
+        document.querySelectorAll("#langMenu [data-lang-option], #initialLangMenu [data-lang-option]").forEach((btn) => {
+          const active = btn.dataset.langOption === appState.lang;
+          btn.classList.toggle("is-active", active);
+          btn.setAttribute("aria-pressed", active ? "true" : "false");
+        });
+        applyTheme(appState.theme);
+        renderRecent();
+        updateStatus();
+      }
+
+      function setViewMode(mode) {
+        if (activeEditorType === "preview") {
+          syncPreviewToMarkdown(true);
+        }
+        appState.viewMode = mode;
+        dom.viewSourceItem.classList.toggle("is-active", mode === "source");
+        dom.viewPreviewItem.classList.toggle("is-active", mode === "preview");
+        dom.viewSplitItem.classList.toggle("is-active", mode === "split");
+
+        dom.workspace.classList.toggle("split", mode === "split");
+        dom.sourcePanel.classList.toggle("hidden", mode === "preview");
+        dom.previewPanel.classList.toggle("hidden", mode === "source");
+        const previewEditable = mode !== "source";
+        dom.previewHost.setAttribute("contenteditable", previewEditable ? "true" : "false");
+        if (!previewEditable) {
+          setActiveEditorType("source");
+        } else if (mode === "preview") {
+          setActiveEditorType("preview");
+          requestAnimationFrame(() => dom.previewHost.focus());
+        }
+        saveCurrentToStorage();
+      }
+
+      function applyTheme(theme) {
+        appState.theme = theme;
+        document.documentElement.dataset.theme = appState.theme;
+        const isDark = appState.theme === "dark";
+        const iconPath = isDark ? "./assets/kd-icons/moon.svg" : "./assets/kd-icons/sun_yellow.svg";
+        const nextLabel = isDark ? t("themeToLight") : t("themeToDark");
+        dom.themeIcon.src = iconPath;
+        dom.initialThemeIcon.src = iconPath;
+        dom.themeBtn.setAttribute("aria-label", nextLabel);
+        dom.initialThemeBtn.setAttribute("aria-label", nextLabel);
+        dom.themeBtn.title = nextLabel;
+        dom.initialThemeBtn.title = nextLabel;
+        localStorage.setItem(THEME_KEY, appState.theme);
+        saveCurrentToStorage();
+      }
+
+      function debounce(fn, wait = 200) {
+        let t = null;
+        return (...args) => {
+          if (t) clearTimeout(t);
+          t = setTimeout(() => fn(...args), wait);
+        };
+      }
+
+      function replaceDoc(text) {
+        view.dispatch({
+          changes: { from: 0, to: view.state.doc.length, insert: text }
+        });
+      }
+
+      function setMarkdown(nextMarkdown, options = { fromEditor: false, fromPreview: false, fromHistory: false }) {
+        appState.markdown = nextMarkdown;
+        if (!options.fromEditor && view && view.state.doc.toString() !== nextMarkdown) {
+          const previewRatioBefore = getScrollRatio(dom.previewBody);
+          if (options.fromPreview) {
+            isApplyingPreviewToSource = true;
+            suppressEditorScrollSync = true;
+          }
+          replaceDoc(nextMarkdown);
+          if (options.fromPreview) {
+            isApplyingPreviewToSource = false;
+            requestAnimationFrame(() => {
+              setScrollRatio(dom.previewBody, previewRatioBefore);
+              suppressEditorScrollSync = false;
+            });
+          }
+        }
+        if (!options.fromPreview) {
+          renderPreview(appState.markdown);
+        }
+        if ((options.fromEditor || options.fromPreview) && !options.fromHistory) {
+          pushEditHistorySnapshot(nextMarkdown);
+        }
+        updateStatus();
+        debouncedSave();
+      }
+
+      function replaceSelection(insertText, cursorOffset = 0) {
+        const sel = view.state.selection.main;
+        const from = sel.from;
+        const to = sel.to;
+        view.dispatch({
+          changes: { from, to, insert: insertText },
+          selection: { anchor: from + insertText.length + cursorOffset }
+        });
+        view.focus();
+      }
+
+      function wrapSelection(prefix, suffix = prefix) {
+        const sel = view.state.selection.main;
+        const selected = view.state.doc.sliceString(sel.from, sel.to);
+        if (!selected) {
+          replaceSelection(`${prefix}${suffix}`, -suffix.length);
+          return;
+        }
+        replaceSelection(`${prefix}${selected}${suffix}`);
+      }
+
+      function applyLinePrefix(prefix, ordered = false) {
+        const sel = view.state.selection.main;
+        const fromLine = view.state.doc.lineAt(sel.from);
+        const toLine = view.state.doc.lineAt(sel.to);
+        const changes = [];
+        let orderNum = 1;
+        for (let i = fromLine.number; i <= toLine.number; i += 1) {
+          const line = view.state.doc.line(i);
+          const insert = ordered ? `${orderNum}. ` : prefix;
+          changes.push({ from: line.from, insert });
+          orderNum += 1;
+        }
+        view.dispatch({ changes });
+        view.focus();
+      }
+
+      function getNextNewDraftName() {
+        const list = getRecentList();
+        const used = new Set(
+          list.map((item) =>
+            (item.name || "")
+              .replace(/\.md$/i, "")
+              .trim()
+          )
+        );
+        const base = t("draftBase");
+        if (!used.has(base)) return base;
+        let i = 1;
+        while (used.has(`${base}${i}`)) i += 1;
+        return `${base}${i}`;
+      }
+
+      function createNewDraft() {
+        const baseName = getNextNewDraftName();
+        const fileName = `${baseName}.md`;
+        const path = `${t("localNewPrefix")}/${fileName}`;
+        appState.meta = { name: fileName, path };
+        setMarkdown("");
+        saveRecent({
+          name: fileName,
+          path,
+          content: "",
+          ts: Date.now()
+        });
+        setUiMode("edit");
+        setViewMode("split");
+        resetEditHistory(appState.markdown);
+      }
+
+      function autoResizeImportInput() {
+        const input = dom.importInput;
+        const minHeight = 44;
+        const maxHeight = 180;
+        input.style.height = `${minHeight}px`;
+        const nextHeight = Math.min(maxHeight, Math.max(minHeight, input.scrollHeight));
+        input.style.height = `${nextHeight}px`;
+        input.style.overflowY = input.scrollHeight > maxHeight ? "auto" : "hidden";
+      }
+
+      async function importFile(file) {
+        if (!file) return;
+        const text = await file.text();
+        appState.meta = { name: file.name || "imported.md", path: file.name || t("localImportFile") };
+        saveRecent({ ...appState.meta, content: text });
+        setMarkdown(text);
+        setUiMode("edit");
+        setViewMode("split");
+        resetEditHistory(appState.markdown);
+      }
+
+      function importFromText(content, meta = { name: "pasted.md", path: t("pasteImport") }) {
+        if (!content.trim()) return;
+        appState.meta = meta;
+        saveRecent({ ...appState.meta, content });
+        setMarkdown(content);
+        setUiMode("edit");
+        setViewMode("split");
+        resetEditHistory(appState.markdown);
+      }
+
+      async function stageDroppedFile(file) {
+        if (!file) return;
+        if (!/\.md$/i.test(file.name) && !file.type.includes("markdown") && file.type !== "text/plain") {
+          alert(t("unsupportedFile"));
+          return;
+        }
+        const text = await file.text();
+        pendingDropFile = { name: file.name, path: file.name || t("dragImport"), content: text };
+        dom.importInput.value = text;
+        autoResizeImportInput();
+      }
+
+      function handleCenterUpload() {
+        if (pendingDropFile) {
+          importFromText(pendingDropFile.content, { name: pendingDropFile.name, path: pendingDropFile.path });
+          pendingDropFile = null;
+          dom.importInput.value = "";
+          autoResizeImportInput();
+          return;
+        }
+        const content = dom.importInput.value;
+        if (!content.trim()) return;
+        importFromText(content, { name: "pasted.md", path: t("pasteImport") });
+        dom.importInput.value = "";
+        autoResizeImportInput();
+      }
+
+      function triggerBlobDownload(blob, filename) {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+
+      function markdownToPlainText(markdownText) {
+        const rendered = DOMPurify.sanitize(md.render(markdownText || ""));
+        const div = document.createElement("div");
+        div.innerHTML = rendered;
+        return (div.innerText || "").replace(/\r\n/g, "\n");
+      }
+
+      function buildExportHtml(name, markdownText) {
+        const rendered = DOMPurify.sanitize(md.render(markdownText || ""));
+        const title = (name || "untitled.md").replace(/\.[^/.]+$/, "");
+        return `<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>${escapeHtml(title)}</title>
+    <style>
+      body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; line-height: 1.7; color: #222; max-width: 900px; margin: 32px auto; padding: 0 20px; }
+      pre { background: #f6f8fa; border-radius: 8px; padding: 12px 14px; overflow: auto; }
+      code { background: #f2f4f6; border-radius: 4px; padding: 1px 4px; }
+      blockquote { border-left: 3px solid #b7c1d0; margin: 12px 0; padding: 4px 0 4px 12px; color: #57606a; }
+      table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+      th, td { border: 1px solid #d0d7de; padding: 8px 10px; text-align: left; }
+    </style>
+  </head>
+  <body>${rendered}</body>
+</html>`;
+      }
+
+      function markdownToDocxParagraphs(markdownText) {
+        const lines = (markdownText || "").replace(/\r\n/g, "\n").split("\n");
+        return lines.map((line) => {
+          const heading = line.match(/^(#{1,6})\s+(.+)$/);
+          if (heading) {
+            const level = heading[1].length;
+            const headingMap = {
+              1: HeadingLevel.HEADING_1,
+              2: HeadingLevel.HEADING_2,
+              3: HeadingLevel.HEADING_3,
+              4: HeadingLevel.HEADING_4,
+              5: HeadingLevel.HEADING_5,
+              6: HeadingLevel.HEADING_6
+            };
+            return new Paragraph({
+              heading: headingMap[level] || HeadingLevel.HEADING_3,
+              text: heading[2].replace(/[*_`~]/g, "")
+            });
+          }
+          const quote = line.match(/^>\s?(.*)$/);
+          if (quote) return new Paragraph({ text: `> ${quote[1].replace(/[*_`~]/g, "")}` });
+          const ordered = line.match(/^\d+\.\s+(.+)$/);
+          if (ordered) return new Paragraph({ text: `1. ${ordered[1].replace(/[*_`~]/g, "")}` });
+          const unordered = line.match(/^[-*+]\s+(.+)$/);
+          if (unordered) return new Paragraph({ text: `- ${unordered[1].replace(/[*_`~]/g, "")}` });
+          return new Paragraph({ text: line.replace(/[*_`~]/g, "") });
+        });
+      }
+
+      async function createPdfBlob(name, markdownText) {
+        const pdf = new jsPDF({ unit: "pt", format: "a4" });
+        const title = (name || "untitled.md").replace(/\.[^/.]+$/, "");
+        const content = `${title}\n\n${markdownToPlainText(markdownText)}`;
+        const margin = 40;
+        const width = pdf.internal.pageSize.getWidth() - margin * 2;
+        const lines = pdf.splitTextToSize(content, width);
+        let y = 50;
+        pdf.setFont("helvetica", "normal");
+        pdf.setFontSize(12);
+        lines.forEach((line) => {
+          if (y > pdf.internal.pageSize.getHeight() - 40) {
+            pdf.addPage();
+            y = 50;
+          }
+          pdf.text(line, margin, y);
+          y += 20;
+        });
+        return pdf.output("blob");
+      }
+
+      async function createDocxBlob(markdownText) {
+        const doc = new Document({
+          sections: [
+            {
+              properties: {},
+              children: markdownToDocxParagraphs(markdownText)
+            }
+          ]
+        });
+        return Packer.toBlob(doc);
+      }
+
+      async function downloadCurrent() {
+        await downloadAs(appState.meta.name || "untitled.md", appState.markdown || "", "md");
+      }
+
+      async function downloadAs(name, content, ext) {
+        const baseName = (name || "untitled").replace(/\.[^/.]+$/, "");
+        if (ext === "md") {
+          triggerBlobDownload(new Blob([content], { type: "text/markdown;charset=utf-8" }), `${baseName}.md`);
+          return;
+        }
+        if (ext === "txt") {
+          triggerBlobDownload(new Blob([markdownToPlainText(content)], { type: "text/plain;charset=utf-8" }), `${baseName}.txt`);
+          return;
+        }
+        if (ext === "html") {
+          triggerBlobDownload(new Blob([buildExportHtml(name, content)], { type: "text/html;charset=utf-8" }), `${baseName}.html`);
+          return;
+        }
+        if (ext === "pdf") {
+          const pdfBlob = await createPdfBlob(name, content);
+          triggerBlobDownload(pdfBlob, `${baseName}.pdf`);
+          return;
+        }
+        if (ext === "docx") {
+          const docxBlob = await createDocxBlob(content);
+          triggerBlobDownload(
+            docxBlob,
+            `${baseName}.docx`
+          );
+        }
+      }
+
+      async function runExportAction(action) {
+        if (["md", "txt", "pdf", "docx", "html"].includes(action)) {
+          await downloadAs(appState.meta.name || "untitled.md", appState.markdown || "", action);
+        }
+      }
+
+      function deleteCurrent() {
+        const ok = confirm(t("confirmDelete"));
+        if (!ok) return;
+        appState.meta = { name: "untitled.md", path: "" };
+        setMarkdown("");
+        resetEditHistory(appState.markdown);
+      }
+
+      function renameRecent(id) {
+        editingRecentId = id;
+        openRecentMenuId = null;
+        renderRecent();
+      }
+
+      function commitInlineRename(id, rawName) {
+        const list = getRecentList();
+        const idx = list.findIndex((item) => item.id === id);
+        if (idx < 0) return;
+        const nextName = (rawName || "").trim();
+        if (!nextName) {
+          editingRecentId = null;
+          renderRecent();
+          return;
+        }
+        list[idx].name = nextName.endsWith(".md") ? nextName : `${nextName}.md`;
+        list[idx].ts = Date.now();
+        setRecentList(list);
+        if (appState.meta.path === list[idx].path) {
+          appState.meta.name = list[idx].name;
+          updateStatus();
+        }
+        editingRecentId = null;
+        renderRecent();
+      }
+
+      function cancelInlineRename() {
+        editingRecentId = null;
+        renderRecent();
+      }
+
+      function duplicateRecent(id) {
+        const list = getRecentList();
+        const target = list.find((item) => item.id === id);
+        if (!target) return;
+        const base = (target.name || "untitled").replace(/\.md$/i, "");
+        list.unshift({
+          ...target,
+          id: `r-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+          name: `${base}-副本.md`,
+          path: `${target.path || base}-副本`,
+          ts: Date.now()
+        });
+        setRecentList(list.slice(0, 30));
+      }
+
+      function deleteRecent(id) {
+        const list = getRecentList().filter((item) => item.id !== id);
+        setRecentList(list);
+      }
+
+      function openRecent(id) {
+        const list = getRecentList();
+        const picked = list.find((item) => item.id === id);
+        if (!picked) return;
+        appState.meta = { name: picked.name, path: picked.path };
+        setMarkdown(picked.content || "");
+        setUiMode("edit");
+        setViewMode("split");
+        resetEditHistory(appState.markdown);
+      }
+
+      function searchInDoc() {
+        const keyword = dom.searchInput.value.trim();
+        if (!keyword) return;
+        const fullText = appState.markdown;
+        const from = view.state.selection.main.to;
+        let idx = fullText.indexOf(keyword, from);
+        if (idx < 0) idx = fullText.indexOf(keyword, 0);
+        if (idx < 0) return;
+        view.dispatch({
+          selection: { anchor: idx, head: idx + keyword.length },
+          scrollIntoView: true
+        });
+        view.focus();
+      }
+
+      function handleFormatAction(type) {
+        if (activeEditorType !== "preview") return;
+        if (type === "bold") document.execCommand("bold");
+        if (type === "italic") document.execCommand("italic");
+        if (type === "strike") document.execCommand("strikeThrough");
+        if (type === "underline") document.execCommand("underline");
+        if (type === "unordered") document.execCommand("insertUnorderedList");
+        if (type === "ordered") document.execCommand("insertOrderedList");
+        if (type === "quote") {
+          const ok = document.execCommand("formatBlock", false, "blockquote");
+          if (!ok) document.execCommand("formatBlock", false, "<blockquote>");
+        }
+        if (type === "code") {
+          const selection = window.getSelection();
+          if (!selection || selection.rangeCount === 0 || selection.isCollapsed) return;
+          const range = selection.getRangeAt(0);
+          const code = document.createElement("code");
+          code.textContent = range.toString();
+          range.deleteContents();
+          range.insertNode(code);
+          selection.removeAllRanges();
+          const newRange = document.createRange();
+          newRange.selectNodeContents(code);
+          selection.addRange(newRange);
+        }
+        syncPreviewToMarkdown(true);
+        updateInlineCodeButtonState();
+        updateFormatButtonsState();
+        requestAnimationFrame(() => updateFormatButtonsState());
+      }
+
+      function isModKey(event) {
+        return event.metaKey || event.ctrlKey;
+      }
+
+      function handleUndo() {
+        applyHistoryState(historyIndex - 1);
+        updateInlineCodeButtonState();
+      }
+
+      function handleRedo() {
+        applyHistoryState(historyIndex + 1);
+        updateInlineCodeButtonState();
+      }
+
+      function setFormatButtonsActiveState(activeMap) {
+        Object.entries(richButtons).forEach(([key, btn]) => {
+          if (!btn) return;
+          btn.classList.toggle("is-active", !!activeMap[key]);
+        });
+      }
+
+      function updateFormatButtonsState() {
+        if (activeEditorType !== "preview") {
+          setFormatButtonsActiveState({});
+          return;
+        }
+        const range = getSelectionRangeInPreview();
+        if (!range) {
+          setFormatButtonsActiveState({});
+          return;
+        }
+        const startNode = range.startContainer;
+        const activeMap = {
+          bold: document.queryCommandState("bold"),
+          italic: document.queryCommandState("italic"),
+          strike: document.queryCommandState("strikeThrough"),
+          underline: document.queryCommandState("underline"),
+          ordered: document.queryCommandState("insertOrderedList"),
+          unordered: document.queryCommandState("insertUnorderedList"),
+          quote: !!closestTag(startNode, "BLOCKQUOTE"),
+          code: !!closestTag(startNode, "CODE")
+        };
+        setFormatButtonsActiveState(activeMap);
+      }
+
+      function updateInlineCodeButtonState() {
+        if (activeEditorType !== "preview") {
+          dom.fmtCodeBtn.classList.add("is-inactive");
+          updateFormatButtonsState();
+          return;
+        }
+        const selection = window.getSelection();
+        const hasSelection = !!selection && !selection.isCollapsed && selection.toString().trim().length > 0;
+        dom.fmtCodeBtn.classList.toggle("is-inactive", !hasSelection);
+        updateFormatButtonsState();
+      }
+
+      const loadedData = loadCurrentFromStorage();
+      appState.markdown = loadedData?.doc || defaultDoc;
+      if (loadedData?.meta) appState.meta = loadedData.meta;
+      if (loadedData?.theme) appState.theme = loadedData.theme;
+      if (loadedData?.lang) appState.lang = loadedData.lang;
+      if (loadedData?.viewMode) appState.viewMode = loadedData.viewMode;
+      appState.uiMode = "initial";
+      resetEditHistory(appState.markdown);
+
+      const editorState = EditorState.create({
+        doc: appState.markdown,
+        extensions: [
+          EditorState.readOnly.of(false),
+          EditorView.editable.of(true),
+          lineNumbers(),
+          history(),
+          markdown(),
+          keymap.of([...defaultKeymap, ...historyKeymap, ...searchKeymap]),
+          EditorView.lineWrapping,
+          EditorView.updateListener.of((v) => {
+            if (v.docChanged) {
+              setMarkdown(v.state.doc.toString(), {
+                fromEditor: true,
+                fromPreview: isApplyingPreviewToSource
+              });
+            }
+            if (v.docChanged || v.selectionSet) {
+              updateInlineCodeButtonState();
+            }
+          }),
+          EditorView.domEventHandlers({
+            keydown(event, viewInstance) {
+              // 仅编辑区生效：快捷键都绑定在编辑器事件域内
+              setActiveEditorType("source");
+              const key = event.key.toLowerCase();
+              if (isModKey(event) && key === "s") {
+                event.preventDefault();
+                saveCurrentToStorage();
+                return true;
+              }
+              if (isModKey(event) && key === "f") {
+                event.preventDefault();
+                dom.searchInput.focus();
+                return true;
+              }
+              if (isModKey(event) && key === "1") {
+                event.preventDefault();
+                setViewMode("source");
+                return true;
+              }
+              if (isModKey(event) && key === "2") {
+                event.preventDefault();
+                setViewMode("preview");
+                return true;
+              }
+              if (isModKey(event) && key === "3") {
+                event.preventDefault();
+                setViewMode("split");
+                return true;
+              }
+              return false;
+            }
+          })
+        ]
+      });
+
+      view = new EditorView({
+        state: editorState,
+        parent: document.getElementById("editorHost")
+      });
+
+      const debouncedSave = debounce(saveCurrentToStorage, 300);
+
+      // split 模式滚动同步（基础骨架）
+      const editorScroller = view.scrollDOM;
+      const previewScroller = dom.previewBody;
+      editorScroller.addEventListener("scroll", () => {
+        if (appState.viewMode !== "split" || isSyncing || suppressEditorScrollSync) return;
+        isSyncing = true;
+        requestAnimationFrame(() => {
+          const ratio = getScrollRatio(editorScroller);
+          setScrollRatio(previewScroller, ratio);
+          isSyncing = false;
+        });
+      });
+
+      previewScroller.addEventListener("scroll", () => {
+        if (appState.viewMode !== "split" || isSyncing) return;
+        isSyncing = true;
+        requestAnimationFrame(() => {
+          const ratio = getScrollRatio(previewScroller);
+          setScrollRatio(editorScroller, ratio);
+          isSyncing = false;
+        });
+      });
+
+      dom.newBtn.addEventListener("click", () => {
+        createNewDraft();
+      });
+      const jumpToInitial = () => {
+        if (activeEditorType === "preview") {
+          syncPreviewToMarkdown(true);
+        }
+        setUiMode("initial");
+      };
+      dom.brandHome.addEventListener("click", jumpToInitial);
+      dom.brandHome.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          jumpToInitial();
+        }
+      });
+
+      dom.openBtn.addEventListener("click", () => dom.fileInput.click());
+      dom.fileInput.addEventListener("change", (e) => importFile(e.target.files?.[0]));
+
+      dom.uploadBtn.addEventListener("click", handleCenterUpload);
+      dom.importInput.addEventListener("keydown", (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
+          handleCenterUpload();
+        }
+      });
+      dom.importInput.addEventListener("input", () => {
+        autoResizeImportInput();
+      });
+
+      dom.previewHost.addEventListener("focus", () => {
+        setActiveEditorType("preview");
+        updateInlineCodeButtonState();
+      });
+      dom.previewHost.addEventListener("blur", () => {
+        syncPreviewToMarkdown(true);
+        updateFormatButtonsState();
+      });
+      dom.previewHost.addEventListener("mouseup", () => updateInlineCodeButtonState());
+      dom.previewHost.addEventListener("keyup", () => updateInlineCodeButtonState());
+      dom.previewHost.addEventListener("keydown", handlePreviewKeydown);
+      dom.previewHost.addEventListener("input", () => {
+        syncPreviewToMarkdown(false);
+        updateInlineCodeButtonState();
+      });
+      document.addEventListener("selectionchange", () => {
+        if (activeEditorType !== "preview") return;
+        updateInlineCodeButtonState();
+      });
+
+      dom.recentList.addEventListener("click", (e) => {
+        const actionNode = e.target.closest("[data-action]");
+        if (!actionNode) {
+          if (e.target.closest(".recent-menu")) return;
+          const openNode = e.target.closest("[data-recent-id]");
+          if (!openNode) return;
+          const id = openNode.dataset.recentId;
+          if (!id || editingRecentId) return;
+          openRecentMenuId = null;
+          openRecent(id);
+          renderRecent();
+          return;
+        }
+
+        const action = actionNode.dataset.action;
+        const id = actionNode.dataset.recentId;
+        if (!id) return;
+
+        if (action === "toggle-menu") {
+          openRecentMenuId = openRecentMenuId === id ? null : id;
+          renderRecent();
+          return;
+        }
+
+        if (action === "open") {
+          if (editingRecentId) return;
+          openRecentMenuId = null;
+          openRecent(id);
+          renderRecent();
+          return;
+        }
+
+        if (action === "rename") {
+          renameRecent(id);
+          openRecentMenuId = null;
+          renderRecent();
+          return;
+        }
+
+        if (action === "duplicate") {
+          duplicateRecent(id);
+          openRecentMenuId = null;
+          renderRecent();
+          return;
+        }
+
+        if (action === "delete") {
+          deleteRecent(id);
+          openRecentMenuId = null;
+          renderRecent();
+          return;
+        }
+
+        if (action === "export") {
+          const list = getRecentList();
+          const item = list.find((entry) => entry.id === id);
+          const format = actionNode.dataset.format || "md";
+          if (item) {
+            downloadAs(item.name, item.content || "", format).catch(() => {
+              alert(t("exportFailed"));
+            });
+          }
+          openRecentMenuId = null;
+          renderRecent();
+        }
+      });
+
+      dom.recentList.addEventListener("dblclick", (e) => {
+        const nameNode = e.target.closest(".recent-item-name");
+        if (!nameNode) return;
+        const itemNode = nameNode.closest("[data-recent-id]");
+        const id = itemNode?.dataset.recentId;
+        if (!id) return;
+        renameRecent(id);
+      });
+
+      dom.recentList.addEventListener("keydown", (e) => {
+        const openNode = e.target.closest("[data-action='open']");
+        if (!openNode) return;
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          const id = openNode.dataset.recentId;
+          if (!id) return;
+          openRecent(id);
+          openRecentMenuId = null;
+          renderRecent();
+        }
+      });
+
+      dom.recentList.addEventListener("keydown", (e) => {
+        const renameInput = e.target.closest("[data-action='rename-inline']");
+        if (!renameInput) return;
+        if (e.key === "Enter") {
+          e.preventDefault();
+          commitInlineRename(renameInput.dataset.recentId, renameInput.value);
+        }
+        if (e.key === "Escape") {
+          e.preventDefault();
+          cancelInlineRename();
+        }
+      });
+
+      dom.recentList.addEventListener("focusout", (e) => {
+        const renameInput = e.target.closest("[data-action='rename-inline']");
+        if (!renameInput) return;
+        requestAnimationFrame(() => {
+          const active = document.activeElement;
+          if (active && active.closest?.("[data-action='rename-inline']")) return;
+          commitInlineRename(renameInput.dataset.recentId, renameInput.value);
+        });
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest(".recent-item")) {
+          if (openRecentMenuId !== null) {
+            openRecentMenuId = null;
+            renderRecent();
+          }
+        }
+        if (!e.target.closest(".export-action-group")) {
+          setExportMenuOpen(false);
+        }
+        if (!e.target.closest(".lang-action-group")) {
+          setLangMenuOpen(false);
+        }
+      });
+
+      dom.viewSourceBtn.addEventListener("click", () => setViewMode("source"));
+      dom.viewPreviewBtn.addEventListener("click", () => setViewMode("preview"));
+      dom.viewSplitBtn.addEventListener("click", () => setViewMode("split"));
+
+      dom.themeBtn.addEventListener("click", () => {
+        const next = appState.theme === "dark" ? "light" : "dark";
+        applyTheme(next);
+      });
+      dom.initialThemeBtn.addEventListener("click", () => {
+        const next = appState.theme === "dark" ? "light" : "dark";
+        applyTheme(next);
+      });
+      dom.langBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        setLangMenuOpen(!langMenuOpen);
+      });
+      dom.initialLangBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        setLangMenuOpen(!langMenuOpen);
+      });
+      dom.langMenu.addEventListener("click", (e) => {
+        const lang = e.target.dataset.langOption;
+        if (!lang) return;
+        applyLanguage(lang);
+        setLangMenuOpen(false);
+      });
+      dom.initialLangMenu.addEventListener("click", (e) => {
+        const lang = e.target.dataset.langOption;
+        if (!lang) return;
+        applyLanguage(lang);
+        setLangMenuOpen(false);
+      });
+
+      dom.searchInput.addEventListener("input", () => {
+        renderRecent();
+      });
+      dom.searchInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          rememberSearchKeyword(dom.searchInput.value);
+        }
+      });
+      dom.searchInput.addEventListener("blur", () => {
+        rememberSearchKeyword(dom.searchInput.value);
+      });
+
+      dom.fmtBoldBtn.addEventListener("click", () => handleFormatAction("bold"));
+      dom.fmtItalicBtn.addEventListener("click", () => handleFormatAction("italic"));
+      dom.fmtStrikeBtn.addEventListener("click", () => handleFormatAction("strike"));
+      dom.fmtUnderlineBtn.addEventListener("click", () => handleFormatAction("underline"));
+      dom.fmtOrderedBtn.addEventListener("click", () => handleFormatAction("ordered"));
+      dom.fmtUnorderedBtn.addEventListener("click", () => handleFormatAction("unordered"));
+      dom.fmtQuoteBtn.addEventListener("click", () => handleFormatAction("quote"));
+      dom.fmtCodeBtn.addEventListener("click", () => handleFormatAction("code"));
+
+      document.addEventListener("keydown", (event) => {
+        if (activeEditorType !== "preview") return;
+        if (!isModKey(event)) return;
+        const key = event.key.toLowerCase();
+        if (!event.shiftKey && key === "b") {
+          event.preventDefault();
+          handleFormatAction("bold");
+        } else if (!event.shiftKey && key === "i") {
+          event.preventDefault();
+          handleFormatAction("italic");
+        } else if (!event.shiftKey && key === "u") {
+          event.preventDefault();
+          handleFormatAction("underline");
+        } else if (!event.shiftKey && key === "e") {
+          event.preventDefault();
+          handleFormatAction("code");
+        } else if (event.shiftKey && key === "x") {
+          event.preventDefault();
+          handleFormatAction("strike");
+        } else if (event.shiftKey && key === "u") {
+          event.preventDefault();
+          handleFormatAction("ordered");
+        } else if (event.shiftKey && key === "y") {
+          event.preventDefault();
+          handleFormatAction("unordered");
+        } else if (event.shiftKey && (event.key === ">" || key === ".")) {
+          event.preventDefault();
+          handleFormatAction("quote");
+        }
+        updateFormatButtonsState();
+        requestAnimationFrame(() => updateFormatButtonsState());
+      });
+
+      dom.undoBtn.addEventListener("click", () => handleUndo());
+      dom.redoBtn.addEventListener("click", () => handleRedo());
+      dom.copyBtn.addEventListener("click", async () => {
+        const payload = getPreviewCopyPayload();
+        if (!payload.text && !payload.html) return;
+        if (window.ClipboardItem && navigator.clipboard?.write) {
+          const item = new ClipboardItem({
+            "text/plain": new Blob([payload.text || ""], { type: "text/plain" }),
+            "text/html": new Blob([payload.html || payload.text || ""], { type: "text/html" })
+          });
+          await navigator.clipboard.write([item]);
+          return;
+        }
+        await navigator.clipboard.writeText(payload.text || "");
+      });
+      dom.downloadBtn.addEventListener("click", downloadCurrent);
+      dom.exportBtn.addEventListener("click", () => setExportMenuOpen(!exportMenuOpen));
+      dom.exportMenu.addEventListener("click", async (e) => {
+        const action = e.target.dataset.exportAction;
+        if (!action) return;
+        try {
+          await runExportAction(action);
+        } catch {
+          alert(t("exportFailed"));
+        }
+        setExportMenuOpen(false);
+      });
+      dom.deleteBtn.addEventListener("click", deleteCurrent);
+
+      // 初始态中央上传框：拖拽导入
+      ["dragenter", "dragover"].forEach((type) =>
+        dom.dropZone.addEventListener(type, (e) => {
+          e.preventDefault();
+          dom.dropZone.classList.add("is-dragover");
+        })
+      );
+      ["dragleave", "dragend"].forEach((type) =>
+        dom.dropZone.addEventListener(type, () => {
+          dom.dropZone.classList.remove("is-dragover");
+        })
+      );
+      dom.dropZone.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dom.dropZone.classList.remove("is-dragover");
+        const file = e.dataTransfer?.files?.[0];
+        if (file) {
+          stageDroppedFile(file).catch(() => {});
+        }
+      });
+
+      // 初始化
+      applyLanguage(appState.lang);
+      ensurePresetRecentDocs().catch(() => {});
+      renderSearchHistoryOptions();
+      setViewMode(appState.viewMode);
+      setUiMode("initial");
+      renderPreview(appState.markdown);
+      autoResizeImportInput();
+      updateInlineCodeButtonState();
+      updateStatus();
+      saveCurrentToStorage();
+      setActiveEditorType("source");
+      requestAnimationFrame(() => {
+        document.body.dataset.appReady = "1";
+      });
+
+      // 源码区点击即聚焦，避免出现“可见但无法输入”的焦点丢失情况
+      dom.sourcePanel.addEventListener("mousedown", () => {
+        setActiveEditorType("source");
+        requestAnimationFrame(() => view?.focus());
+      });
+      dom.editorHost.addEventListener("focusin", () => {
+        setActiveEditorType("source");
+        updateInlineCodeButtonState();
+      });
+    </script>
+  </body>
+</html>
