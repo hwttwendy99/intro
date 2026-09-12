@@ -1,0 +1,18 @@
+/* @kd-registry: segmented v2.0 */
+/* ══ Segmented 分段控制器 ══ */
+
+.kd-segmented-controller {
+  display: inline-flex; gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--kd-color-line-regular);
+  border-radius: var(--kd-border-radius-middle);
+  background: var(--kd-color-fill-base);
+}
+.kd-segmented-item { flex: 1; }
+.kd-segmented-item .kd-button { width: 100%; }
+
+/* Active state override */
+.kd-segmented-item.is-active .kd-button {
+  background: var(--kd-color-state-pressed);
+  font-weight: var(--kd-font-weight-bold);
+}

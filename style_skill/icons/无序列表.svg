@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" km_stroke-width="1" km_darkmode="true" kd_rtl="mirror" requiredCustomFeatures="data-kd-color-scheme,data-kd-rtl-mirror-scheme"><desc>无序列表</desc><style>
+    .kd-stroke-width-icon-regular { 
+       stroke-width: var(--kd-stroke-width-icon-regular, 1px)
+    }
+    .kd-color-icon-primary {
+       fill: var(--kd-color-icon-primary, #333333);
+       stroke: var(--kd-color-icon-primary, #333333);
+       km_fill: #333333;
+       km_stroke: #333333;
+       km_darkmode_fill: #C7C7C7;
+       km_darkmode_stroke: #C7C7C7; 
+    }</style><g id="group-1" class="kd-color-icon-primary kd-stroke-width-icon-regular"><path id="fill" d="M3.79727 2.50068C3.79727 3.21865 3.21524 3.80068 2.49727 3.80068C1.7793 3.80068 1.19727 3.21865 1.19727 2.50068C1.19727 1.78271 1.7793 1.20068 2.49727 1.20068C3.21524 1.20068 3.79727 1.78271 3.79727 2.50068Z" stroke="none"/><path id="fill_2" d="M3.79922 7.5002C3.79922 8.21817 3.21719 8.8002 2.49922 8.8002C1.78125 8.8002 1.19922 8.21817 1.19922 7.5002C1.19922 6.78223 1.78125 6.2002 2.49922 6.2002C3.21719 6.2002 3.79922 6.78223 3.79922 7.5002Z" stroke="none"/><path id="fill_3" d="M3.79922 12.5002C3.79922 13.2182 3.21719 13.8002 2.49922 13.8002C1.78125 13.8002 1.19922 13.2182 1.19922 12.5002C1.19922 11.7822 1.78125 11.2002 2.49922 11.2002C3.21719 11.2002 3.79922 11.7822 3.79922 12.5002Z" stroke="none"/></g><g id="group-0" class="kd-color-icon-primary kd-stroke-width-icon-regular"><path id="line" d="M6.5 2.5H14.5" stroke-linecap="round" stroke-linejoin="round" fill="none" vector-effect="non-scaling-stroke"/><path id="line_2" d="M6.5 7.5H14.5" stroke-linecap="round" stroke-linejoin="round" fill="none" vector-effect="non-scaling-stroke"/><path id="line_3" d="M6.5 12.5H14.5" stroke-linecap="round" stroke-linejoin="round" fill="none" vector-effect="non-scaling-stroke"/></g></svg>

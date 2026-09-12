@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" requiredCustomFeatures="data-kd-color-scheme" km_stroke-width="1" km_darkmode="true"><desc>月亮_暗色模式_dark</desc><style>
+    .kd-stroke-width-icon-regular { 
+       stroke-width: var(--kd-stroke-width-icon-regular, 1px)
+    }
+    .kd-color-icon-primary {
+       fill: var(--kd-color-icon-primary, #333333);
+       stroke: var(--kd-color-icon-primary, #333333);
+       km_fill: #333333;
+       km_stroke: #333333;
+       km_darkmode_fill: #C7C7C7;
+       km_darkmode_stroke: #C7C7C7; 
+    }</style><g id="group-0" class="kd-color-icon-primary kd-stroke-width-icon-regular"><path id="line" d="M14.4307 8.95212C14.4319 8.94416 14.4237 8.93809 14.4164 8.94163C13.6871 9.29893 12.867 9.49952 12 9.49952C8.96243 9.49952 6.5 7.03709 6.5 3.99952C6.5 3.13271 6.70052 2.31273 7.05771 1.58345C7.06125 1.57622 7.05519 1.56798 7.04722 1.56915C3.90904 2.0301 1.5 4.73363 1.5 7.99982C1.5 11.5897 4.41015 14.4998 8 14.4998C11.2664 14.4998 13.97 12.0905 14.4307 8.95212Z" fill="none" vector-effect="non-scaling-stroke" stroke-linejoin="round"/></g></svg>
