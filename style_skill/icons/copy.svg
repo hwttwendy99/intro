@@ -1,20 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" requiredCustomFeatures="data-kd-color-scheme" km_stroke-width="1" km_darkmode="true"><desc>复制16_副本_Copy_CopyQat</desc><style>
-    .kd-stroke-width-icon-regular { 
-       stroke-width: var(--kd-stroke-width-icon-regular, 1px)
-    }
-    .kd-color-icon-primary {
-       fill: var(--kd-color-icon-primary, #333333);
-       stroke: var(--kd-color-icon-primary, #333333);
-       km_fill: #333333;
-       km_stroke: #333333;
-       km_darkmode_fill: #C7C7C7;
-       km_darkmode_stroke: #C7C7C7; 
-    }
-    .kd-color-icon-blue-primary {
-       fill: var(--kd-color-icon-blue-primary, #2661BF);
-       stroke: var(--kd-color-icon-blue-primary, #2661BF);
-       km_fill: #2661BF;
-       km_stroke: #2661BF;
-       km_darkmode_fill: #C7C7C7;
-       km_darkmode_stroke: #C7C7C7; 
-    }</style><g id="group-0" class="kd-color-icon-primary kd-stroke-width-icon-regular"><path id="line" d="M9.5 4.5V2C9.5 1.72386 9.27614 1.5 9 1.5H2C1.72386 1.5 1.5 1.72386 1.5 2V11C1.5 11.2761 1.72386 11.5 2 11.5H6.5" fill="none" vector-effect="non-scaling-stroke" stroke-linejoin="round"/></g><g id="group-1" class="kd-color-icon-blue-primary kd-stroke-width-icon-regular"><path id="line_2" d="M11 4.5H7C6.72386 4.5 6.5 4.72386 6.5 5V14C6.5 14.2761 6.72386 14.5 7 14.5H14C14.2761 14.5 14.5 14.2761 14.5 14V8L11 4.5Z" fill="none" vector-effect="non-scaling-stroke" stroke-linejoin="round"/><path id="line_3" d="M10.5 4.5V8C10.5 8.27614 10.7239 8.5 11 8.5H14.5" fill="none" vector-effect="non-scaling-stroke" stroke-linejoin="round"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+  <g stroke="#333333" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2.3" y="5.1" width="8.6" height="8.6" rx="1.4"/>
+    <path d="M6.15 2.4h5.05a2.2 2.2 0 0 1 2.2 2.2v5.05"/>
+  </g>
+</svg>

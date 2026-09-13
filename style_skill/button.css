@@ -1,53 +1,53 @@
-/* @kd-registry: button v2.0 */
+/* App button v2.0 */
 /* ══ Button 按钮 ══ */
 
-.kd-button {
+.app-button {
   display: inline-flex; align-items: center; justify-content: center;
-  font-family: inherit; font-weight: var(--kd-font-weight-regular);
-  line-height: var(--kd-line-height-base);
-  border: 1px solid transparent; border-radius: var(--kd-border-radius-middle);
+  font-family: inherit; font-weight: var(--app-font-weight-regular);
+  line-height: var(--app-line-height-base);
+  border: 1px solid transparent; border-radius: var(--app-border-radius-middle);
   cursor: pointer; white-space: nowrap; user-select: none; outline: none;
-  transition: background var(--kd-time-fast) var(--kd-easing-ease),
-              border-color var(--kd-time-fast) var(--kd-easing-ease),
-              color var(--kd-time-fast) var(--kd-easing-ease);
+  transition: background var(--app-time-fast) var(--app-easing-ease),
+              border-color var(--app-time-fast) var(--app-easing-ease),
+              color var(--app-time-fast) var(--app-easing-ease);
 }
-.kd-button-children { display: inline-flex; align-items: center; }
-.kd-button-prefix-icon { margin-right: 4px; font-size: 16px; display: inline-flex; }
-.kd-button-suffix-icon { margin-left: 4px; font-size: 16px; display: inline-flex; }
+.app-button-children { display: inline-flex; align-items: center; }
+.app-button-prefix-icon { margin-right: 4px; font-size: 16px; display: inline-flex; }
+.app-button-suffix-icon { margin-left: 4px; font-size: 16px; display: inline-flex; }
 
 /* Size */
-.kd-button-sm { height: 24px; padding: 0 5px;    font-size: var(--kd-font-size-sub-base); border-radius: var(--kd-border-radius-small); }
-.kd-button-m  { height: 28px; padding: 2px 11px; font-size: var(--kd-font-size-sub-base); }
-.kd-button-lg { height: 32px; padding: 4px 15px; font-size: var(--kd-font-size-sub-base); }
-.kd-button-xl { height: 36px; padding: 6px 19px; font-size: var(--kd-font-size-middle); }
-.kd-button-light.kd-button-m { padding: 2px 8px; }
+.app-button-sm { height: 24px; padding: 0 5px;    font-size: var(--app-font-size-sub-base); border-radius: var(--app-border-radius-small); }
+.app-button-m  { height: 28px; padding: 2px 11px; font-size: var(--app-font-size-sub-base); }
+.app-button-lg { height: 32px; padding: 4px 15px; font-size: var(--app-font-size-sub-base); }
+.app-button-xl { height: 36px; padding: 6px 19px; font-size: var(--app-font-size-middle); }
+.app-button-light.app-button-m { padding: 2px 8px; }
 
 /* Primary */
-.kd-button-primary { background: var(--kd-color-public-normal); color: var(--kd-color-text-white); }
-.kd-button-primary:hover:not(:disabled) { background: var(--kd-color-public-hover); }
-.kd-button-primary:active:not(:disabled) { background: var(--kd-color-public-pressed); }
+.app-button-primary { background: var(--app-color-public-normal); color: var(--app-color-text-white); }
+.app-button-primary:hover:not(:disabled) { background: var(--app-color-public-hover); }
+.app-button-primary:active:not(:disabled) { background: var(--app-color-public-pressed); }
 
 /* Secondary */
-.kd-button-secondary { background: var(--kd-color-fill-base); color: var(--kd-color-text-primary); border-color: var(--kd-color-fill-heavy); }
-.kd-button-secondary:hover:not(:disabled)  { background: var(--kd-color-fill-light); }
-.kd-button-secondary:active:not(:disabled) { background: var(--kd-color-fill-regular); }
+.app-button-secondary { background: var(--app-color-fill-base); color: var(--app-color-text-primary); border-color: var(--app-color-fill-heavy); }
+.app-button-secondary:hover:not(:disabled)  { background: var(--app-color-fill-light); }
+.app-button-secondary:active:not(:disabled) { background: var(--app-color-fill-regular); }
 
 /* Light */
-.kd-button-light { background: transparent; color: var(--kd-color-text-primary); }
-.kd-button-light:hover:not(:disabled)  { background: var(--kd-color-state-hover); }
-.kd-button-light:active:not(:disabled) { background: var(--kd-color-state-pressed); }
+.app-button-light { background: transparent; color: var(--app-color-text-primary); }
+.app-button-light:hover:not(:disabled)  { background: var(--app-color-state-hover); }
+.app-button-light:active:not(:disabled) { background: var(--app-color-state-pressed); }
 
 /* Danger */
-.kd-button-light.kd-button-danger  { color: var(--kd-color-error-normal); }
-.kd-button-primary.kd-button-danger { background: var(--kd-color-error-normal); }
-.kd-button-primary.kd-button-danger:hover:not(:disabled)  { background: var(--kd-color-error-hover); }
-.kd-button-primary.kd-button-danger:active:not(:disabled) { background: var(--kd-color-error-pressed); }
+.app-button-light.app-button-danger  { color: var(--app-color-error-normal); }
+.app-button-primary.app-button-danger { background: var(--app-color-error-normal); }
+.app-button-primary.app-button-danger:hover:not(:disabled)  { background: var(--app-color-error-hover); }
+.app-button-primary.app-button-danger:active:not(:disabled) { background: var(--app-color-error-pressed); }
 
 /* Disabled */
-.kd-button:disabled { opacity: var(--kd-opacity-disabled); cursor: not-allowed; pointer-events: none; }
+.app-button:disabled { opacity: var(--app-opacity-disabled); cursor: not-allowed; pointer-events: none; }
 
 /* Icon-only */
-.kd-button-icon.kd-button-sm { min-width: 24px; padding: 3px; }
-.kd-button-icon.kd-button-m  { min-width: 28px; padding: 5px; }
-.kd-button-icon.kd-button-lg { min-width: 32px; padding: 7px; }
-.kd-button-icon.kd-button-xl { min-width: 36px; padding: 9px; }
+.app-button-icon.app-button-sm { min-width: 24px; padding: 3px; }
+.app-button-icon.app-button-m  { min-width: 28px; padding: 5px; }
+.app-button-icon.app-button-lg { min-width: 32px; padding: 7px; }
+.app-button-icon.app-button-xl { min-width: 36px; padding: 9px; }

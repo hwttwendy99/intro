@@ -12,10 +12,10 @@
       @import url("./style_skill/navigation-sidebar.css");
 
       :root {
-        --kd-color-public-normal: rgba(var(--kd-color-indigo-6), 1);
-        --kd-color-public-hover: rgba(var(--kd-color-indigo-5), 1);
-        --kd-color-public-pressed: rgba(var(--kd-color-indigo-7), 1);
-        --kd-color-state-pressed-public: rgba(var(--kd-color-indigo-6), 0.12);
+        --app-color-public-normal: rgba(var(--app-color-indigo-6), 1);
+        --app-color-public-hover: rgba(var(--app-color-indigo-5), 1);
+        --app-color-public-pressed: rgba(var(--app-color-indigo-7), 1);
+        --app-color-state-pressed-public: rgba(var(--app-color-indigo-6), 0.12);
 
         --app-space-1: 4px;
         --app-space-2: 8px;
@@ -26,34 +26,34 @@
         --app-control-height-m: 34px;
         --app-icon-size-m: 16px;
         --app-icon-size-s: 14px;
-        --app-fmt-icon-size: 27px;
+        --app-fmt-icon-size: 22px;
         --app-input-radius: 15px;
         --app-statusbar-height: 40px;
         --app-content-bottom-gap: 52px;
         --app-code-line-height: 1.7;
-        --app-format-active-bg: rgba(var(--kd-color-blue-6), 1);
+        --app-format-active-bg: rgba(var(--app-color-blue-6), 1);
         --app-icon-stroke-m: 1.6;
-        --app-dark-control-bg: color-mix(in srgb, var(--kd-color-fill-light) 66%, #000 34%);
-        --app-dark-control-bg-hover: color-mix(in srgb, var(--kd-color-fill-light) 76%, #000 24%);
+        --app-dark-control-bg: color-mix(in srgb, var(--app-color-fill-light) 66%, #000 34%);
+        --app-dark-control-bg-hover: color-mix(in srgb, var(--app-color-fill-light) 76%, #000 24%);
         --app-dark-icon-filter: brightness(0) invert(0.92);
       }
 
       [data-theme="dark"] {
-        --kd-color-public-normal: rgba(var(--kd-color-indigo-7), 1);
-        --kd-color-public-hover: rgba(var(--kd-color-indigo-8), 1);
-        --kd-color-public-pressed: rgba(var(--kd-color-indigo-6), 1);
-        --app-format-active-bg: rgba(var(--kd-color-blue-5), 1);
-        --kd-color-text-primary: #ffffff;
-        --kd-color-text-secondary: #ffffff;
-        --kd-color-text-tertiary: rgba(255, 255, 255, 0.82);
-        --kd-color-icon-primary: #ffffff;
-        --kd-color-icon-secondary: #ffffff;
-        --kd-color-line-heavy: #3f3f3f;
-        --kd-color-line-medium: #3f3f3f;
-        --kd-color-line-regular: #3f3f3f;
-        --kd-color-line-light: #3f3f3f;
-        --kd-box-shadow-small: none;
-        --kd-box-shadow-middle: 0 8px 20px rgba(0, 0, 0, 0.45);
+        --app-color-public-normal: rgba(var(--app-color-indigo-7), 1);
+        --app-color-public-hover: rgba(var(--app-color-indigo-8), 1);
+        --app-color-public-pressed: rgba(var(--app-color-indigo-6), 1);
+        --app-format-active-bg: rgba(var(--app-color-blue-5), 1);
+        --app-color-text-primary: #ffffff;
+        --app-color-text-secondary: #ffffff;
+        --app-color-text-tertiary: rgba(255, 255, 255, 0.82);
+        --app-color-icon-primary: #ffffff;
+        --app-color-icon-secondary: #ffffff;
+        --app-color-line-heavy: #3f3f3f;
+        --app-color-line-medium: #3f3f3f;
+        --app-color-line-regular: #3f3f3f;
+        --app-color-line-light: #3f3f3f;
+        --app-box-shadow-small: none;
+        --app-box-shadow-middle: 0 8px 20px rgba(0, 0, 0, 0.45);
       }
 
       [data-theme="dark"] .sidebar,
@@ -61,7 +61,7 @@
       [data-theme="dark"] .workspace,
       [data-theme="dark"] .statusbar {
         border-color: #3f3f3f;
-        background: color-mix(in srgb, var(--kd-color-fill-base) 86%, #000 14%);
+        background: color-mix(in srgb, var(--app-color-fill-base) 86%, #000 14%);
         box-shadow: none;
       }
 
@@ -69,7 +69,7 @@
       [data-theme="dark"] .view-icon-btn,
       [data-theme="dark"] .action-icon-btn.plain,
       [data-theme="dark"] .icon-btn {
-        color: var(--kd-color-text-primary);
+        color: var(--app-color-text-primary);
       }
 
       [data-theme="dark"] .view-icon-btn,
@@ -111,7 +111,7 @@
       [data-theme="dark"] .recent-empty,
       [data-theme="dark"] .muted,
       [data-theme="dark"] .statusbar,
-      [data-theme="dark"] .kd-navigation-item,
+      [data-theme="dark"] .app-navigation-item,
       [data-theme="dark"] #previewHost,
       [data-theme="dark"] #editorHost .cm-editor,
       [data-theme="dark"] #editorHost .cm-content,
@@ -120,8 +120,8 @@
         caret-color: #ffffff;
       }
 
-      [data-theme="dark"] .kd-navigation-item.is-active {
-        color: var(--kd-color-public-normal);
+      [data-theme="dark"] .app-navigation-item.is-active {
+        color: var(--app-color-public-normal);
       }
 
       [data-theme="dark"] input::placeholder,
@@ -136,7 +136,7 @@
       [data-theme="dark"] .recent-item {
         border-color: #3f3f3f;
         color: #ffffff;
-        background: color-mix(in srgb, var(--kd-color-fill-base) 90%, #000 10%);
+        background: color-mix(in srgb, var(--app-color-fill-base) 90%, #000 10%);
       }
 
       [data-theme="dark"] .hero-dropzone textarea {
@@ -144,11 +144,11 @@
       }
 
       [data-theme="dark"] .input-search::before,
-      [data-theme="dark"] .kd-navigation-item__icon img {
+      [data-theme="dark"] .app-navigation-item__icon img {
         filter: var(--app-dark-icon-filter);
       }
 
-      [data-theme="dark"] .kd-navigation-item.is-active .kd-navigation-item__icon img {
+      [data-theme="dark"] .app-navigation-item.is-active .app-navigation-item__icon img {
         filter: brightness(0) invert(1);
       }
 
@@ -156,33 +156,33 @@
       [data-theme="dark"] .recent-submenu,
       [data-theme="dark"] .export-menu,
       [data-theme="dark"] .lang-menu {
-        border-color: var(--kd-color-line-medium);
-        background: color-mix(in srgb, var(--kd-color-fill-base) 88%, #000 12%);
+        border-color: var(--app-color-line-medium);
+        background: color-mix(in srgb, var(--app-color-fill-base) 88%, #000 12%);
       }
 
       [data-theme="dark"] #previewHost pre {
-        border-color: var(--kd-color-line-medium);
-        background: color-mix(in srgb, var(--kd-color-fill-light) 70%, #000 30%);
+        border-color: var(--app-color-line-medium);
+        background: color-mix(in srgb, var(--app-color-fill-light) 70%, #000 30%);
       }
 
       [data-theme="dark"] #previewHost blockquote {
-        border-left-color: var(--kd-color-public-normal);
-        background: color-mix(in srgb, var(--kd-color-fill-light) 68%, #000 32%);
-        color: var(--kd-color-text-secondary);
+        border-left-color: var(--app-color-public-normal);
+        background: color-mix(in srgb, var(--app-color-fill-light) 68%, #000 32%);
+        color: var(--app-color-text-secondary);
       }
 
       [data-theme="dark"] #previewHost th {
-        background: color-mix(in srgb, var(--kd-color-fill-light) 74%, #000 26%);
+        background: color-mix(in srgb, var(--app-color-fill-light) 74%, #000 26%);
       }
 
       [data-theme="dark"] #previewHost th,
       [data-theme="dark"] #previewHost td {
-        border-color: var(--kd-color-line-medium);
+        border-color: var(--app-color-line-medium);
       }
 
       [data-theme="dark"] #editorHost .cm-gutters {
-        border-right-color: var(--kd-color-line-medium);
-        background: color-mix(in srgb, var(--kd-color-fill-base) 90%, #000 10%);
+        border-right-color: var(--app-color-line-medium);
+        background: color-mix(in srgb, var(--app-color-fill-base) 90%, #000 10%);
       }
 
       [data-theme="dark"] .icon-btn.is-inactive .fmt-icon {
@@ -191,36 +191,37 @@
 
       body {
         margin: 0;
-        font-family: var(--kd-font-family);
-        font-size: var(--kd-font-size-base);
-        line-height: var(--kd-font-line-height-base);
-        color: var(--kd-color-text-primary);
-        background: var(--kd-color-background-base);
+        font-family: var(--app-font-family);
+        font-size: var(--app-font-size-base);
+        line-height: var(--app-font-line-height-base);
+        color: var(--app-color-text-primary);
+        background: var(--app-color-background-base);
         height: 100vh;
         overflow: hidden;
       }
 
       .app {
         height: 100%;
+        min-height: 0;
         display: grid;
         grid-template-columns: 232px 1fr;
+        grid-template-rows: minmax(0, 1fr);
         gap: var(--app-space-3);
         padding: var(--app-space-3);
       }
 
-      body[data-app-ready="0"] .app {
-        visibility: hidden;
-      }
-
       .sidebar {
-        border: 1px solid var(--kd-color-line-regular);
-        border-radius: var(--kd-border-radius-extra-large);
-        background: var(--kd-color-fill-base);
-        box-shadow: var(--kd-box-shadow-small);
+        border: 1px solid var(--app-color-line-regular);
+        border-radius: var(--app-border-radius-extra-large);
+        background: var(--app-color-fill-base);
+        box-shadow: var(--app-box-shadow-small);
         padding: var(--app-space-4) var(--app-space-3);
         display: flex;
         flex-direction: column;
         gap: var(--app-space-3);
+        min-height: 0;
+        height: 100%;
+        overflow: hidden;
       }
 
       .brand {
@@ -232,39 +233,42 @@
 
       .brand:focus-visible {
         outline: none;
-        box-shadow: var(--kd-box-shadow-glow);
-        border-radius: var(--kd-border-radius-middle);
+        box-shadow: var(--app-box-shadow-glow);
+        border-radius: var(--app-border-radius-middle);
       }
 
       .brand img {
         width: 28px;
         height: 28px;
-        border-radius: var(--kd-border-radius-middle);
+        border-radius: var(--app-border-radius-middle);
         object-fit: contain;
       }
 
       .brand h1 {
         margin: 0;
-        color: var(--kd-color-public-normal);
-        font-size: var(--kd-font-size-xx-large);
-        line-height: var(--kd-font-line-height-xx-large);
-        font-weight: var(--kd-font-weight-bold);
+        color: var(--app-color-public-normal);
+        font-size: var(--app-font-size-xx-large);
+        line-height: var(--app-font-line-height-xx-large);
+        font-weight: var(--app-font-weight-bold);
       }
 
       .side-actions {
         display: flex;
         flex-direction: column;
         gap: var(--app-space-2);
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
       }
 
-      .side-actions .kd-navigation-item {
+      .side-actions .app-navigation-item {
         width: 100%;
         justify-content: flex-start;
         gap: 10px;
         padding-left: var(--app-space-3);
       }
 
-      .kd-navigation-item__icon svg {
+      .app-navigation-item__icon svg {
         width: var(--app-icon-size-s);
         height: var(--app-icon-size-s);
         stroke: currentColor;
@@ -274,8 +278,8 @@
         stroke-linejoin: round;
       }
 
-      .kd-navigation-item__icon img,
-      .kd-button-prefix-icon img {
+      .app-navigation-item__icon img,
+      .app-button-prefix-icon img {
         width: var(--app-icon-size-s);
         height: var(--app-icon-size-s);
         display: block;
@@ -288,12 +292,12 @@
       .input-search input {
         width: 100%;
         height: 36px;
-        border: 1px solid var(--kd-color-line-medium);
-        border-radius: var(--kd-border-radius-circle);
-        background: var(--kd-color-fill-base);
-        color: var(--kd-color-text-primary);
-        font-size: var(--kd-font-size-sub-base);
-        line-height: var(--kd-line-height-base);
+        border: 1px solid var(--app-color-line-medium);
+        border-radius: var(--app-border-radius-circle);
+        background: var(--app-color-fill-base);
+        color: var(--app-color-text-primary);
+        font-size: var(--app-font-size-sub-base);
+        line-height: var(--app-line-height-base);
         padding: 0 var(--app-space-3) 0 36px;
       }
 
@@ -305,25 +309,26 @@
         left: var(--app-space-2);
         top: 9px;
         background: no-repeat center / contain url("./style_skill/icons/magnifier.svg");
-        opacity: var(--kd-opacity-icon-hover);
+        opacity: var(--app-opacity-icon-hover);
       }
 
       .recent-title {
-        color: var(--kd-color-text-tertiary);
-        font-size: var(--kd-font-size-sub-base);
-        line-height: var(--kd-line-height-base);
+        color: var(--app-color-text-tertiary);
+        font-size: var(--app-font-size-sub-base);
+        line-height: var(--app-line-height-base);
+        flex-shrink: 0;
       }
 
       select,
       textarea,
       input {
-        border: 1px solid var(--kd-color-line-medium);
-        border-radius: var(--kd-border-radius-large);
-        background: var(--kd-color-fill-base);
-        color: var(--kd-color-text-primary);
-        font-family: var(--kd-font-family);
-        font-size: var(--kd-font-size-sub-base);
-        line-height: var(--kd-line-height-base);
+        border: 1px solid var(--app-color-line-medium);
+        border-radius: var(--app-border-radius-large);
+        background: var(--app-color-fill-base);
+        color: var(--app-color-text-primary);
+        font-family: var(--app-font-family);
+        font-size: var(--app-font-size-sub-base);
+        line-height: var(--app-line-height-base);
       }
 
       textarea,
@@ -334,17 +339,17 @@
       input:focus-visible,
       select:focus-visible,
       textarea:focus-visible,
-      .kd-button:focus-visible,
-      .kd-navigation-item:focus-visible {
+      .app-button:focus-visible,
+      .app-navigation-item:focus-visible {
         outline: none;
-        border-color: var(--kd-color-line-public);
-        box-shadow: var(--kd-box-shadow-glow);
+        border-color: var(--app-color-line-public);
+        box-shadow: var(--app-box-shadow-glow);
       }
 
       .muted {
-        color: var(--kd-color-text-tertiary);
-        font-size: var(--kd-font-size-small);
-        line-height: var(--kd-line-height-small);
+        color: var(--app-color-text-tertiary);
+        font-size: var(--app-font-size-small);
+        line-height: var(--app-line-height-small);
       }
 
       .content {
@@ -368,8 +373,8 @@
       .theme-toggle {
         width: var(--app-control-height-m);
         height: var(--app-control-height-m);
-        border-radius: var(--kd-border-radius-large);
-        border: 1px solid var(--kd-color-line-light);
+        border-radius: var(--app-border-radius-large);
+        border: 1px solid var(--app-color-line-light);
         background: #ffffff;
         display: inline-flex;
         align-items: center;
@@ -378,7 +383,7 @@
 
       .theme-toggle:hover {
         background: #ffffff;
-        border-color: var(--kd-color-line-regular);
+        border-color: var(--app-color-line-regular);
       }
 
       .theme-icon {
@@ -394,19 +399,19 @@
 
       [data-theme="dark"] .theme-toggle {
         background: transparent;
-        border-color: var(--kd-color-line-medium);
+        border-color: var(--app-color-line-medium);
       }
 
       [data-theme="dark"] .theme-toggle:hover {
         background: transparent;
-        border-color: var(--kd-color-line-regular);
+        border-color: var(--app-color-line-regular);
       }
 
       .topbar {
-        border: 1px solid var(--kd-color-line-regular);
-        border-radius: var(--kd-border-radius-extra-large);
-        background: var(--kd-color-fill-base);
-        box-shadow: var(--kd-box-shadow-small);
+        border: 1px solid var(--app-color-line-regular);
+        border-radius: var(--app-border-radius-extra-large);
+        background: var(--app-color-fill-base);
+        box-shadow: var(--app-box-shadow-small);
         padding: var(--app-space-3);
         display: grid;
         grid-template-columns: auto 1fr auto;
@@ -435,10 +440,10 @@
         width: var(--app-control-height-m);
         height: var(--app-control-height-m);
         border: none;
-        border-radius: var(--kd-border-radius-small);
+        border-radius: var(--app-border-radius-small);
         background: transparent;
-        color: var(--kd-color-text-primary);
-        font-size: var(--kd-font-size-sub-base);
+        color: var(--app-color-text-primary);
+        font-size: var(--app-font-size-sub-base);
         line-height: 1;
         display: inline-flex;
         align-items: center;
@@ -448,7 +453,7 @@
       }
 
       .icon-btn:hover {
-        background: var(--kd-color-state-hover);
+        background: var(--app-color-state-hover);
       }
 
       .icon-btn.is-active {
@@ -463,6 +468,11 @@
         width: var(--app-fmt-icon-size);
         height: var(--app-fmt-icon-size);
         display: block;
+      }
+
+      #fmtUnderlineBtn .fmt-icon {
+        width: 18px;
+        height: 18px;
       }
 
       .icon-btn.is-inactive .fmt-icon {
@@ -483,13 +493,13 @@
         min-width: 164px;
         max-width: 220px;
         padding: 6px 8px;
-        border-radius: var(--kd-border-radius-large);
-        background: var(--kd-color-feedback-regular);
-        color: var(--kd-color-text-white);
-        font-size: var(--kd-font-size-sub-base);
-        line-height: var(--kd-line-height-small);
+        border-radius: var(--app-border-radius-large);
+        background: var(--app-color-feedback-regular);
+        color: var(--app-color-text-white);
+        font-size: var(--app-font-size-sub-base);
+        line-height: var(--app-line-height-small);
         white-space: pre-line;
-        box-shadow: var(--kd-box-shadow-middle);
+        box-shadow: var(--app-box-shadow-middle);
         z-index: 20;
         pointer-events: none;
       }
@@ -502,7 +512,7 @@
         transform: translateX(-50%) rotate(45deg);
         width: 8px;
         height: 8px;
-        background: var(--kd-color-feedback-regular);
+        background: var(--app-color-feedback-regular);
         z-index: 20;
         pointer-events: none;
       }
@@ -531,7 +541,7 @@
       }
 
       .action-icon-btn.plain:hover {
-        background: var(--kd-color-state-hover);
+        background: var(--app-color-state-hover);
       }
 
       .action-icon-btn:disabled {
@@ -563,19 +573,19 @@
         width: var(--app-control-height-m);
         min-width: var(--app-control-height-m);
         height: var(--app-control-height-m);
-        border: 1px solid var(--kd-color-line-regular);
-        border-radius: var(--kd-border-radius-large);
+        border: 1px solid var(--app-color-line-regular);
+        border-radius: var(--app-border-radius-large);
         background: #ffffff;
         padding: 0;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        color: var(--kd-color-text-primary);
+        color: var(--app-color-text-primary);
       }
 
       .action-icon-btn.plain.lang-btn:hover {
         background: #ffffff;
-        border-color: var(--kd-color-line-regular);
+        border-color: var(--app-color-line-regular);
       }
 
       [data-theme="dark"] .action-icon-btn.plain.lang-btn {
@@ -584,7 +594,7 @@
 
       [data-theme="dark"] .action-icon-btn.plain.lang-btn:hover {
         background: transparent;
-        border-color: var(--kd-color-line-regular);
+        border-color: var(--app-color-line-regular);
       }
 
       .lang-btn-icon,
@@ -607,10 +617,10 @@
         top: calc(100% + 6px);
         right: 0;
         min-width: 120px;
-        border: 1px solid var(--kd-color-line-regular);
-        border-radius: var(--kd-border-radius-middle);
-        background: var(--kd-color-fill-base);
-        box-shadow: var(--kd-box-shadow-middle);
+        border: 1px solid var(--app-color-line-regular);
+        border-radius: var(--app-border-radius-middle);
+        background: var(--app-color-fill-base);
+        box-shadow: var(--app-box-shadow-middle);
         padding: 4px;
         display: none;
         z-index: 12;
@@ -624,22 +634,22 @@
         width: 100%;
         border: none;
         background: transparent;
-        color: var(--kd-color-text-primary);
+        color: var(--app-color-text-primary);
         text-align: left;
-        font-size: var(--kd-font-size-sub-base);
-        line-height: var(--kd-line-height-base);
-        border-radius: var(--kd-border-radius-small);
+        font-size: var(--app-font-size-sub-base);
+        line-height: var(--app-line-height-base);
+        border-radius: var(--app-border-radius-small);
         padding: 7px 8px;
         cursor: pointer;
       }
 
       .lang-menu button:hover {
-        background: var(--kd-color-state-hover);
+        background: var(--app-color-state-hover);
       }
 
       .lang-menu button.is-active {
-        color: var(--kd-color-text-brand);
-        background: color-mix(in srgb, var(--kd-color-state-hover) 62%, var(--kd-color-brand-1) 38%);
+        color: var(--app-color-text-brand);
+        background: color-mix(in srgb, var(--app-color-state-hover) 62%, var(--app-color-brand-1) 38%);
       }
 
       .export-menu {
@@ -647,10 +657,10 @@
         top: calc(100% + 6px);
         right: 0;
         min-width: 150px;
-        border: 1px solid var(--kd-color-line-regular);
-        border-radius: var(--kd-border-radius-middle);
-        background: var(--kd-color-fill-base);
-        box-shadow: var(--kd-box-shadow-middle);
+        border: 1px solid var(--app-color-line-regular);
+        border-radius: var(--app-border-radius-middle);
+        background: var(--app-color-fill-base);
+        box-shadow: var(--app-box-shadow-middle);
         padding: 4px;
         display: none;
         z-index: 12;
@@ -664,17 +674,17 @@
         width: 100%;
         border: none;
         background: transparent;
-        color: var(--kd-color-text-primary);
+        color: var(--app-color-text-primary);
         text-align: left;
-        font-size: var(--kd-font-size-sub-base);
-        line-height: var(--kd-line-height-base);
-        border-radius: var(--kd-border-radius-small);
+        font-size: var(--app-font-size-sub-base);
+        line-height: var(--app-line-height-base);
+        border-radius: var(--app-border-radius-small);
         padding: 7px 8px;
         cursor: pointer;
       }
 
       .export-menu button:hover {
-        background: var(--kd-color-state-hover);
+        background: var(--app-color-state-hover);
       }
 
       .workspace-wrap {
@@ -713,7 +723,7 @@
 
       .hero {
         border: none;
-        border-radius: var(--kd-border-radius-extra-large);
+        border-radius: var(--app-border-radius-extra-large);
         background: transparent;
         box-shadow: none;
         padding: 0;
@@ -722,11 +732,11 @@
 
       .hero h2 {
         margin: 0 0 40px;
-        color: var(--kd-color-public-normal);
+        color: var(--app-color-public-normal);
         text-align: center;
         font-size: 50px;
-        line-height: var(--kd-font-line-height-xxx-large);
-        font-weight: var(--kd-font-weight-bold);
+        line-height: var(--app-font-line-height-xxx-large);
+        font-weight: var(--app-font-weight-bold);
         transform: translateX(-36px);
       }
 
@@ -739,13 +749,13 @@
       .hero-dropzone {
         position: relative;
         border: none;
-        border-radius: var(--kd-border-radius-large);
+        border-radius: var(--app-border-radius-large);
         padding: 0;
-        transition: var(--kd-all-transition);
+        transition: var(--app-all-transition);
       }
 
       .hero-dropzone.is-dragover {
-        box-shadow: var(--kd-box-shadow-glow);
+        box-shadow: var(--app-box-shadow-glow);
       }
 
       .hero-dropzone textarea {
@@ -755,17 +765,17 @@
         max-height: 180px;
         resize: none;
         border-radius: var(--app-input-radius);
-        border: 1px solid var(--kd-color-line-medium);
-        background: var(--kd-color-fill-base);
+        border: 1px solid var(--app-color-line-medium);
+        background: var(--app-color-fill-base);
         padding: var(--app-space-3);
         padding-right: 90px;
         padding-bottom: 36px;
-        box-shadow: var(--kd-box-shadow-small);
+        box-shadow: var(--app-box-shadow-small);
         overflow-y: hidden;
       }
 
       .hero-dropzone.is-dragover textarea {
-        border-color: var(--kd-color-line-public);
+        border-color: var(--app-color-line-public);
         min-height: 96px;
       }
 
@@ -781,7 +791,7 @@
         padding: 0;
       }
 
-      .hero-upload-btn .kd-button-children {
+      .hero-upload-btn .app-button-children {
         font-size: 20px;
         line-height: 1;
       }
@@ -790,25 +800,28 @@
         display: flex;
         flex-direction: column;
         gap: var(--app-space-1);
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
       }
 
       .recent-item {
         width: 100%;
         text-align: left;
         padding: 0;
-        border: 1px solid var(--kd-color-line-light);
-        border-radius: var(--kd-border-radius-middle);
-        color: var(--kd-color-text-secondary);
+        border: 1px solid var(--app-color-line-light);
+        border-radius: var(--app-border-radius-middle);
+        color: var(--app-color-text-secondary);
         background: transparent;
-        font-size: var(--kd-font-size-sub-base);
-        line-height: var(--kd-line-height-base);
+        font-size: var(--app-font-size-sub-base);
+        line-height: var(--app-line-height-base);
         cursor: default;
         position: relative;
       }
 
       .recent-item:hover,
       .recent-item.is-menu-open {
-        background: var(--kd-color-state-hover);
+        background: var(--app-color-state-hover);
       }
 
       .recent-item-main {
@@ -832,22 +845,22 @@
       .recent-rename-input {
         width: 100%;
         height: 26px;
-        border: 1px solid var(--kd-color-line-public);
-        border-radius: var(--kd-border-radius-small);
+        border: 1px solid var(--app-color-line-public);
+        border-radius: var(--app-border-radius-small);
         padding: 0 6px;
-        color: var(--kd-color-text-primary);
-        font-size: var(--kd-font-size-sub-base);
+        color: var(--app-color-text-primary);
+        font-size: var(--app-font-size-sub-base);
         line-height: 26px;
-        background: var(--kd-color-fill-base);
+        background: var(--app-color-fill-base);
       }
 
       .recent-item-more {
         width: 24px;
         height: 24px;
         border: none;
-        border-radius: var(--kd-border-radius-small);
+        border-radius: var(--app-border-radius-small);
         background: transparent;
-        color: var(--kd-color-text-secondary);
+        color: var(--app-color-text-secondary);
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -857,7 +870,7 @@
       }
 
       .recent-item-more:hover {
-        background: var(--kd-color-state-hover);
+        background: var(--app-color-state-hover);
       }
 
       .recent-menu {
@@ -865,10 +878,10 @@
         top: calc(100% + 4px);
         right: 6px;
         width: 172px;
-        border: 1px solid var(--kd-color-line-regular);
-        border-radius: var(--kd-border-radius-middle);
-        background: var(--kd-color-fill-base);
-        box-shadow: var(--kd-box-shadow-middle);
+        border: 1px solid var(--app-color-line-regular);
+        border-radius: var(--app-border-radius-middle);
+        background: var(--app-color-fill-base);
+        box-shadow: var(--app-box-shadow-middle);
         padding: 4px;
         display: none;
         z-index: 10;
@@ -882,24 +895,24 @@
         width: 100%;
         border: none;
         background: transparent;
-        color: var(--kd-color-text-primary);
+        color: var(--app-color-text-primary);
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 7px 8px;
-        border-radius: var(--kd-border-radius-small);
-        font-size: var(--kd-font-size-sub-base);
-        line-height: var(--kd-line-height-base);
+        border-radius: var(--app-border-radius-small);
+        font-size: var(--app-font-size-sub-base);
+        line-height: var(--app-line-height-base);
         cursor: pointer;
         text-align: left;
       }
 
       .recent-menu-item:hover {
-        background: var(--kd-color-state-hover);
+        background: var(--app-color-state-hover);
       }
 
       .recent-menu-item.is-danger {
-        color: var(--kd-color-error-normal);
+        color: var(--app-color-error-normal);
       }
 
       .recent-menu-item.has-submenu {
@@ -920,10 +933,10 @@
         left: 100%;
         top: -4px;
         width: 120px;
-        border: 1px solid var(--kd-color-line-regular);
-        border-radius: var(--kd-border-radius-middle);
-        background: var(--kd-color-fill-base);
-        box-shadow: var(--kd-box-shadow-middle);
+        border: 1px solid var(--app-color-line-regular);
+        border-radius: var(--app-border-radius-middle);
+        background: var(--app-color-fill-base);
+        box-shadow: var(--app-box-shadow-middle);
         padding: 4px;
         display: none;
       }
@@ -936,23 +949,23 @@
         width: 100%;
         border: none;
         background: transparent;
-        color: var(--kd-color-text-primary);
-        border-radius: var(--kd-border-radius-small);
+        color: var(--app-color-text-primary);
+        border-radius: var(--app-border-radius-small);
         padding: 7px 8px;
-        font-size: var(--kd-font-size-sub-base);
-        line-height: var(--kd-line-height-base);
+        font-size: var(--app-font-size-sub-base);
+        line-height: var(--app-line-height-base);
         text-align: left;
         cursor: pointer;
       }
 
       .recent-submenu button:hover {
-        background: var(--kd-color-state-hover);
+        background: var(--app-color-state-hover);
       }
 
       .recent-empty {
-        color: var(--kd-color-text-tertiary);
-        font-size: var(--kd-font-size-sub-base);
-        line-height: var(--kd-line-height-base);
+        color: var(--app-color-text-tertiary);
+        font-size: var(--app-font-size-sub-base);
+        line-height: var(--app-line-height-base);
         padding: var(--app-space-2) var(--app-space-1);
       }
 
@@ -962,10 +975,10 @@
         height: auto;
         display: grid;
         grid-template-columns: 1fr;
-        border: 1px solid var(--kd-color-line-regular);
-        border-radius: var(--kd-border-radius-extra-large);
-        background: var(--kd-color-fill-base);
-        box-shadow: var(--kd-box-shadow-small);
+        border: 1px solid var(--app-color-line-regular);
+        border-radius: var(--app-border-radius-extra-large);
+        background: var(--app-color-fill-base);
+        box-shadow: var(--app-box-shadow-small);
       }
 
       .workspace.split {
@@ -976,7 +989,7 @@
         min-width: 0;
         min-height: 0;
         height: 100%;
-        border-right: 1px solid var(--kd-color-line-regular);
+        border-right: 1px solid var(--app-color-line-regular);
       }
 
       .panel:last-child {
@@ -1013,7 +1026,7 @@
 
       #editorHost .cm-content {
         min-height: 100%;
-        caret-color: var(--kd-color-text-primary);
+        caret-color: var(--app-color-text-primary);
         padding: var(--app-space-3) var(--app-space-5) 24px calc(var(--app-space-6) + 2px);
       }
 
@@ -1027,14 +1040,14 @@
 
       #previewHost {
         padding: var(--app-space-4) var(--app-space-5) var(--app-space-4) calc(var(--app-space-6) + 2px);
-        color: var(--kd-color-text-primary);
+        color: var(--app-color-text-primary);
         min-height: 100%;
         outline: none;
       }
 
       #previewHost.preview-editing {
-        box-shadow: inset 0 0 0 1px var(--kd-color-line-public);
-        border-radius: var(--kd-border-radius-middle);
+        box-shadow: inset 0 0 0 1px var(--app-color-line-public);
+        border-radius: var(--app-border-radius-middle);
       }
 
       #previewHost p {
@@ -1080,19 +1093,19 @@
       #previewHost pre {
         margin: var(--app-space-4) 0;
         overflow: auto;
-        border: 1px solid var(--kd-color-line-light);
-        border-radius: var(--kd-border-radius-large);
-        background: var(--kd-color-fill-light);
+        border: 1px solid var(--app-color-line-light);
+        border-radius: var(--app-border-radius-large);
+        background: var(--app-color-fill-light);
         padding: var(--app-space-4);
       }
 
       #previewHost blockquote {
         margin: var(--app-space-3) 0;
         padding: var(--app-space-1) 0 var(--app-space-1) var(--app-space-3);
-        border-left: 3px solid var(--kd-color-line-public);
-        color: var(--kd-color-text-secondary);
-        background: color-mix(in srgb, var(--kd-color-fill-light) 84%, transparent);
-        border-radius: var(--kd-border-radius-small);
+        border-left: 3px solid var(--app-color-line-public);
+        color: var(--app-color-text-secondary);
+        background: color-mix(in srgb, var(--app-color-fill-light) 84%, transparent);
+        border-radius: var(--app-border-radius-small);
       }
 
       #previewHost table {
@@ -1103,7 +1116,7 @@
 
       #previewHost th,
       #previewHost td {
-        border: 1px solid var(--kd-color-line-regular);
+        border: 1px solid var(--app-color-line-regular);
         padding: var(--app-space-3) var(--app-space-4);
       }
 
@@ -1116,12 +1129,12 @@
         min-height: var(--app-statusbar-height);
         max-height: var(--app-statusbar-height);
         padding: 0 var(--app-space-3);
-        border: 1px solid var(--kd-color-line-regular);
-        border-radius: var(--kd-border-radius-extra-large);
-        background: var(--kd-color-fill-base);
-        color: var(--kd-color-text-secondary);
-        font-size: var(--kd-font-size-sub-base);
-        line-height: var(--kd-line-height-base);
+        border: 1px solid var(--app-color-line-regular);
+        border-radius: var(--app-border-radius-extra-large);
+        background: var(--app-color-fill-base);
+        color: var(--app-color-text-secondary);
+        font-size: var(--app-font-size-sub-base);
+        line-height: var(--app-line-height-base);
         flex-shrink: 0;
         position: absolute;
         left: 0;
@@ -1135,7 +1148,7 @@
       .theme-toggle:focus-visible,
       .recent-item-more:focus-visible {
         outline: none;
-        box-shadow: var(--kd-box-shadow-glow);
+        box-shadow: var(--app-box-shadow-glow);
       }
 
       .statusbar span {
@@ -1145,8 +1158,8 @@
       }
 
       .statusbar strong {
-        color: var(--kd-color-text-primary);
-        font-weight: var(--kd-font-weight-bold);
+        color: var(--app-color-text-primary);
+        font-weight: var(--app-font-weight-bold);
       }
 
       .hidden {
@@ -1173,7 +1186,7 @@
       }
     </style>
   </head>
-  <body data-ui-mode="initial" data-app-ready="0">
+  <body data-ui-mode="initial">
     <div class="app">
       <aside class="sidebar">
         <div id="brandHome" class="brand" role="button" tabindex="0" aria-label="返回初始页" title="返回初始页">
@@ -1184,24 +1197,24 @@
           <h1>Type MD</h1>
         </div>
 
-        <nav class="kd-navigation-vertical side-actions">
-          <button id="newBtn" class="kd-navigation-item is-active">
-            <span class="kd-navigation-item__icon" aria-hidden="true">
+        <nav class="app-navigation-vertical side-actions">
+          <button id="newBtn" class="app-navigation-item is-active">
+            <span class="app-navigation-item__icon" aria-hidden="true">
               <img src="./style_skill/icons/insert.svg" alt="" />
             </span>
-            <span id="newBtnLabel" class="kd-navigation-item__label">新建</span>
+            <span id="newBtnLabel" class="app-navigation-item__label">新建</span>
           </button>
-          <button id="openBtn" class="kd-navigation-item">
-            <span class="kd-navigation-item__icon" aria-hidden="true">
+          <button id="openBtn" class="app-navigation-item">
+            <span class="app-navigation-item__icon" aria-hidden="true">
               <img src="./style_skill/icons/folder.svg" alt="" />
             </span>
-            <span id="openBtnLabel" class="kd-navigation-item__label">打开</span>
+            <span id="openBtnLabel" class="app-navigation-item__label">打开</span>
           </button>
           <input id="fileInput" class="hidden" type="file" accept=".md,text/markdown,text/plain" />
           <div class="input-search">
             <input
               id="searchInput"
-              name="wps-md-demo-search"
+              name="typemd-search"
               type="search"
               placeholder="关键词搜索"
               list="searchHistoryList"
@@ -1214,7 +1227,16 @@
           </div>
           <span id="recentTitle" class="recent-title">最近文件</span>
           <div id="recentList" class="recent-list">
-            <span class="recent-empty">无最近文件</span>
+            <div class="recent-item" title="docs/产品功能介绍.md">
+              <div class="recent-item-main">
+                <span class="recent-item-name">产品功能介绍.md</span>
+              </div>
+            </div>
+            <div class="recent-item" title="docs/新用户指南.md">
+              <div class="recent-item-main">
+                <span class="recent-item-name">新用户指南.md</span>
+              </div>
+            </div>
           </div>
         </nav>
       </aside>
@@ -1225,7 +1247,7 @@
             <img id="initialThemeIcon" class="theme-icon tool-icon" src="./style_skill/icons/sun_yellow.svg" alt="" />
           </button>
           <div class="top-action-group lang-action-group">
-            <button id="initialLangBtn" class="kd-button kd-button-secondary kd-button-m action-icon-btn plain lang-btn" type="button" title="语言" aria-label="语言">
+            <button id="initialLangBtn" class="app-button app-button-secondary app-button-m action-icon-btn plain lang-btn" type="button" title="语言" aria-label="语言">
               <span class="lang-btn-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24">
                   <circle cx="12" cy="12" r="9"></circle>
@@ -1244,19 +1266,19 @@
 
         <header class="topbar hidden">
           <div class="topbar-group">
-            <div id="viewSegment" class="kd-segmented-controller view-segment" role="tablist" aria-label="编辑视图切换">
-              <div id="viewSourceItem" class="kd-segmented-item">
-                <button id="viewSourceBtn" class="kd-button kd-button-light kd-button-m view-icon-btn" type="button" title="源码视图" aria-label="源码视图">
+            <div id="viewSegment" class="app-segmented-controller view-segment" role="tablist" aria-label="编辑视图切换">
+              <div id="viewSourceItem" class="app-segmented-item">
+                <button id="viewSourceBtn" class="app-button app-button-light app-button-m view-icon-btn" type="button" title="源码视图" aria-label="源码视图">
                   <img class="view-icon tool-icon" src="./style_skill/icons/code_ai.svg" alt="" />
                 </button>
               </div>
-              <div id="viewPreviewItem" class="kd-segmented-item">
-                <button id="viewPreviewBtn" class="kd-button kd-button-light kd-button-m view-icon-btn" type="button" title="预览视图" aria-label="预览视图">
+              <div id="viewPreviewItem" class="app-segmented-item">
+                <button id="viewPreviewBtn" class="app-button app-button-light app-button-m view-icon-btn" type="button" title="预览视图" aria-label="预览视图">
                   <img class="view-icon tool-icon" src="./style_skill/icons/eye.svg" alt="" />
                 </button>
               </div>
-              <div id="viewSplitItem" class="kd-segmented-item">
-                <button id="viewSplitBtn" class="kd-button kd-button-light kd-button-m view-icon-btn" type="button" title="分栏视图" aria-label="分栏视图">
+              <div id="viewSplitItem" class="app-segmented-item">
+                <button id="viewSplitBtn" class="app-button app-button-light app-button-m view-icon-btn" type="button" title="分栏视图" aria-label="分栏视图">
                   <img class="view-icon tool-icon" src="./style_skill/icons/columns_view_two.svg" alt="" />
                 </button>
               </div>
@@ -1276,27 +1298,27 @@
           </div>
           <div class="topbar-group">
             <div id="historyActions" class="topbar-group hidden">
-              <button id="undoBtn" class="kd-button kd-button-secondary kd-button-m action-icon-btn plain" type="button" title="上一步" aria-label="上一步">
+              <button id="undoBtn" class="app-button app-button-secondary app-button-m action-icon-btn plain" type="button" title="上一步" aria-label="上一步">
                 <svg class="undo-redo-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M9 7L4 12L9 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
                   <path d="M20 12H4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
                 </svg>
               </button>
-              <button id="redoBtn" class="kd-button kd-button-secondary kd-button-m action-icon-btn plain" type="button" title="下一步" aria-label="下一步">
+              <button id="redoBtn" class="app-button app-button-secondary app-button-m action-icon-btn plain" type="button" title="下一步" aria-label="下一步">
                 <svg class="undo-redo-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M15 7L20 12L15 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
                   <path d="M4 12H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
                 </svg>
               </button>
             </div>
-            <button id="copyBtn" class="kd-button kd-button-secondary kd-button-m action-icon-btn plain" type="button" title="复制" aria-label="复制">
+            <button id="copyBtn" class="app-button app-button-secondary app-button-m action-icon-btn plain" type="button" title="复制" aria-label="复制">
               <img class="action-icon tool-icon" src="./style_skill/icons/copy.svg" alt="" />
             </button>
-            <button id="downloadBtn" class="kd-button kd-button-secondary kd-button-m action-icon-btn plain" type="button" title="下载" aria-label="下载">
+            <button id="downloadBtn" class="app-button app-button-secondary app-button-m action-icon-btn plain" type="button" title="下载" aria-label="下载">
               <img class="action-icon tool-icon" src="./style_skill/icons/download.svg" alt="" />
             </button>
             <div class="top-action-group export-action-group">
-              <button id="exportBtn" class="kd-button kd-button-secondary kd-button-m action-icon-btn plain" type="button" title="导出" aria-label="导出">
+              <button id="exportBtn" class="app-button app-button-secondary app-button-m action-icon-btn plain" type="button" title="导出" aria-label="导出">
                 <img class="action-icon tool-icon" src="./style_skill/icons/share_to.svg" alt="" />
               </button>
               <div id="exportMenu" class="export-menu">
@@ -1307,14 +1329,14 @@
                 <button type="button" data-export-action="html">.html</button>
               </div>
             </div>
-            <button id="deleteBtn" class="kd-button kd-button-light kd-button-danger kd-button-m action-icon-btn" type="button" title="删除" aria-label="删除">
+            <button id="deleteBtn" class="app-button app-button-light app-button-danger app-button-m action-icon-btn" type="button" title="删除" aria-label="删除">
               <img class="action-icon tool-icon" src="./style_skill/icons/trash_can.svg" alt="" />
             </button>
             <button id="themeBtn" class="theme-toggle" type="button" aria-label="切换亮暗模式">
               <img id="themeIcon" class="theme-icon tool-icon" src="./style_skill/icons/sun_yellow.svg" alt="" />
             </button>
             <div class="top-action-group lang-action-group">
-              <button id="langBtn" class="kd-button kd-button-secondary kd-button-m action-icon-btn plain lang-btn" type="button" title="语言" aria-label="语言">
+              <button id="langBtn" class="app-button app-button-secondary app-button-m action-icon-btn plain lang-btn" type="button" title="语言" aria-label="语言">
                 <span class="lang-btn-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
                     <circle cx="12" cy="12" r="9"></circle>
@@ -1338,8 +1360,8 @@
             <div class="hero-upload">
               <div id="dropZone" class="hero-dropzone">
                 <textarea id="importInput" placeholder="在这里粘贴 Markdown 文本，或把 .md 文件拖动到输入框中"></textarea>
-                <button id="uploadBtn" class="kd-button kd-button-primary kd-button-m hero-upload-btn" type="button">
-                  <span class="kd-button-children" aria-hidden="true">↑</span>
+                <button id="uploadBtn" class="app-button app-button-primary app-button-m hero-upload-btn" type="button">
+                  <span class="app-button-children" aria-hidden="true">↑</span>
                 </button>
               </div>
             </div>
@@ -1382,11 +1404,11 @@
       import { jsPDF } from "https://esm.sh/jspdf@2.5.1";
       import { Document, Packer, Paragraph, HeadingLevel } from "https://esm.sh/docx@8.5.0";
 
-      const STORAGE_KEY = "wps-md-editor.current";
-      const RECENT_KEY = "wps-md-editor.recent";
-      const SEARCH_HISTORY_KEY = "wps-md-editor.search-history";
-      const THEME_KEY = "wps-md-editor.theme";
-      const LANG_KEY = "wps-md-editor.lang";
+      const STORAGE_KEY = "typemd-editor.current";
+      const RECENT_KEY = "typemd-editor.recent";
+      const SEARCH_HISTORY_KEY = "typemd-editor.search-history";
+      const THEME_KEY = "typemd-editor.theme";
+      const LANG_KEY = "typemd-editor.lang";
       const defaultDoc = "";
       const PRESET_DOCS = [
         {
@@ -1412,12 +1434,7 @@
             "## 适用场景",
             "",
             "1. AI 生成 Markdown 初稿后快速修订",
-            "2. 团队内文档标准化编写与导出分发",
-            "3. 政企/教育等本地合规写作场景",
-            "",
-            "## 注意事项",
-            "",
-            "> 当前版本不包含“用 WPS 打开”“分享至 WPS 协作”，规划在后续迭代。"
+            "2. 团队内文档标准化编写与导出分发"
           ].join("\n"),
           fallback: "# 产品功能介绍\n\n预设文档加载失败，请检查 docs/产品功能介绍.md。"
         },
@@ -1468,15 +1485,12 @@
           fallback: "# 新用户指南\n\n预设文档加载失败，请检查 docs/新用户指南.md。"
         }
       ];
-      const LEGACY_PRESET_PATHS = new Set([
-        "02_demo/docs/doc1.md",
-        "02_demo/docs/doc2.md",
-        "02_demo/docs/doc3.md",
-        "02_demo/docs/团队知识库模板.md",
-        "02_demo/docs/团队知识库模版.md",
-        "02_demo/docs/产品功能介绍.md",
-        "02_demo/docs/新用户指南.md"
-      ]);
+      const LEGACY_PATH_MAP = {
+        "02_demo/docs/产品功能介绍.md": "docs/产品功能介绍.md",
+        "02_demo/docs/新用户指南.md": "docs/新用户指南.md",
+        "L2_Markdown/02_demo/docs/产品功能介绍.md": "docs/产品功能介绍.md",
+        "L2_Markdown/02_demo/docs/新用户指南.md": "docs/新用户指南.md"
+      };
 
       const I18N = {
         zh: {
@@ -1663,12 +1677,21 @@
         pathText: document.getElementById("pathText")
       };
 
+      function readStorage(key, fallback = "") {
+        try {
+          const value = localStorage.getItem(key);
+          return value == null ? fallback : value;
+        } catch {
+          return fallback;
+        }
+      }
+
       const appState = {
         markdown: "",
         viewMode: "split",
         uiMode: "initial",
-        theme: localStorage.getItem(THEME_KEY) || "light",
-        lang: localStorage.getItem(LANG_KEY) || "zh",
+        theme: readStorage(THEME_KEY, "light") || "light",
+        lang: readStorage(LANG_KEY, "zh") || "zh",
         meta: { name: "untitled.md", path: "" }
       };
 
@@ -1702,23 +1725,74 @@
         return I18N[appState.lang]?.[key] ?? I18N.zh[key] ?? key;
       }
 
-      function getRecentList() {
+      function readStoredRecent() {
         try {
           const parsed = JSON.parse(localStorage.getItem(RECENT_KEY) || "[]");
-          return parsed
-            .map((item, idx) => ({
-              id: item.id || `${item.ts || Date.now()}-${idx}`,
-              ...item,
-              ts: item.ts || Date.now()
-            }))
-            .sort((a, b) => b.ts - a.ts);
+          return Array.isArray(parsed) ? parsed : [];
         } catch {
           return [];
         }
       }
 
+      function normalizePath(path) {
+        return String(path || "").replace(/\\/g, "/").replace(/^\.\//, "");
+      }
+
+      function resolveRecentPath(path) {
+        const raw = String(path || "");
+        const p = normalizePath(raw);
+        if (LEGACY_PATH_MAP[raw]) return LEGACY_PATH_MAP[raw];
+        if (LEGACY_PATH_MAP[p]) return LEGACY_PATH_MAP[p];
+        const mapped = Object.entries(LEGACY_PATH_MAP).find(([from]) => p.endsWith(normalizePath(from)));
+        return mapped ? mapped[1] : p;
+      }
+
+      function isObsoletePath(path) {
+        const p = normalizePath(path);
+        return /(?:^|\/)(?:02_demo|L2_Markdown|kd-skills|assets\/kd-icons)(?:\/|$)/.test(p);
+      }
+
+      function normalizeRecent(list) {
+        const byPath = new Map();
+        (Array.isArray(list) ? list : []).forEach((item, idx) => {
+          if (!item) return;
+          const path = resolveRecentPath(item.path);
+          if (!path || isObsoletePath(path)) return;
+          const next = {
+            id: item.id || `${item.ts || Date.now()}-${idx}`,
+            ...item,
+            path,
+            ts: Number.isFinite(item.ts) ? item.ts : Date.now()
+          };
+          const prev = byPath.get(path);
+          if (!prev || next.ts >= prev.ts) byPath.set(path, next);
+        });
+        return [...byPath.values()].sort((a, b) => b.ts - a.ts);
+      }
+
+      function getRecentList() {
+        return normalizeRecent(readStoredRecent());
+      }
+
       function setRecentList(list) {
-        localStorage.setItem(RECENT_KEY, JSON.stringify(list));
+        try {
+          localStorage.setItem(RECENT_KEY, JSON.stringify(normalizeRecent(list)));
+        } catch {
+          // ignore quota / private mode
+        }
+      }
+
+      function sanitizeCurrentMeta() {
+        const path = appState.meta?.path;
+        if (!path) return;
+        const resolved = resolveRecentPath(path);
+        if (isObsoletePath(resolved)) {
+          appState.meta = { name: "untitled.md", path: "" };
+          return;
+        }
+        if (resolved !== path) {
+          appState.meta = { ...appState.meta, path: resolved };
+        }
       }
 
       function getSearchHistory() {
@@ -1748,55 +1822,60 @@
         renderSearchHistoryOptions();
       }
 
+      function fallbackPresetContent(preset) {
+        return preset.embedded || preset.fallback || "";
+      }
+
       async function fetchPresetDocContent(preset) {
-        try {
-          const res = await fetch(encodeURI(preset.url), { cache: "no-store" });
-          if (!res.ok) return preset.embedded || preset.fallback;
-          const text = await res.text();
-          return text.trim() ? text : preset.embedded || preset.fallback;
-        } catch {
-          return preset.embedded || preset.fallback;
+        const urls = Array.from(new Set([preset.url, encodeURI(preset.url)]));
+        for (const url of urls) {
+          try {
+            const res = await fetch(url, { cache: "no-store" });
+            if (!res.ok) continue;
+            const text = await res.text();
+            if (text.trim()) return text;
+          } catch {
+            // try next candidate
+          }
         }
+        return fallbackPresetContent(preset);
+      }
+
+      function buildPresetRecentItem(preset, idx, content, existing) {
+        const text = String(content || "").trim()
+          ? content
+          : fallbackPresetContent(preset);
+        return {
+          id: existing?.id || `preset-${idx + 1}`,
+          name: existing?.name || preset.name,
+          path: preset.path,
+          content: text,
+          ts: Number.isFinite(existing?.ts) ? existing.ts : Date.now() - idx
+        };
+      }
+
+      function seedPresetRecentDocs() {
+        const list = getRecentList();
+        const extras = PRESET_DOCS.map((preset, idx) => {
+          if (list.some((item) => item.path === preset.path)) return null;
+          return buildPresetRecentItem(preset, idx, fallbackPresetContent(preset), null);
+        }).filter(Boolean);
+        setRecentList(extras.length ? [...list, ...extras] : list);
+        renderRecent();
       }
 
       async function ensurePresetRecentDocs() {
-        const list = getRecentList().filter((item) => {
-          const path = item.path || "";
-          if (LEGACY_PRESET_PATHS.has(path)) return false;
-          return true;
-        });
-        const now = Date.now();
-        const loaded = await Promise.all(
-          PRESET_DOCS.map(async (preset, idx) => ({
-            ...preset,
-            content: await fetchPresetDocContent(preset),
-            ts: now - idx
-          }))
+        seedPresetRecentDocs();
+        const list = getRecentList();
+        const next = await Promise.all(
+          list.map(async (item) => {
+            const preset = PRESET_DOCS.find((entry) => entry.path === item.path);
+            if (!preset) return item;
+            if (String(item.content || "").trim()) return item;
+            return buildPresetRecentItem(preset, PRESET_DOCS.indexOf(preset), await fetchPresetDocContent(preset), item);
+          })
         );
-
-        loaded.forEach((preset, idx) => {
-          const existingIdx = list.findIndex((item) => item.path === preset.path);
-          const existing = existingIdx >= 0 ? list[existingIdx] : null;
-          const keepExistingContent =
-            !!existing?.content &&
-            !String(existing.content).includes("预设文档加载失败") &&
-            !String(existing.content).includes("Preset file load failed");
-          const nextItem = {
-            ...(existing || {}),
-            id: existing?.id || `preset-${idx + 1}`,
-            name: preset.name,
-            path: preset.path,
-            content: keepExistingContent ? existing.content : preset.content,
-            ts: existing?.ts || preset.ts
-          };
-          if (existingIdx >= 0) {
-            list[existingIdx] = nextItem;
-          } else {
-            list.unshift(nextItem);
-          }
-        });
-
-        setRecentList(list.slice(0, 30));
+        setRecentList(next);
         renderRecent();
       }
 
@@ -1812,7 +1891,7 @@
       function saveRecent(entry) {
         const list = getRecentList().filter((item) => item.name !== entry.name || item.path !== entry.path);
         list.unshift({ ...entry, id: `r-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`, ts: Date.now() });
-        setRecentList(list.slice(0, 30));
+        setRecentList(list);
         renderRecent();
       }
 
@@ -1879,7 +1958,27 @@
           uiMode: appState.uiMode,
           updatedAt: Date.now()
         };
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+        } catch {
+          // ignore quota / private mode
+        }
+      }
+
+      function touchRecentForCurrentDoc() {
+        const path = appState.meta?.path;
+        if (!path || appState.uiMode !== "edit") return;
+        const list = getRecentList();
+        const idx = list.findIndex((item) => item.path === path);
+        if (idx < 0) return;
+        list[idx] = {
+          ...list[idx],
+          name: appState.meta.name || list[idx].name,
+          content: appState.markdown,
+          ts: Date.now()
+        };
+        setRecentList(list);
+        renderRecent();
       }
 
       function loadCurrentFromStorage() {
@@ -2661,7 +2760,7 @@
           path: `${target.path || base}-副本`,
           ts: Date.now()
         });
-        setRecentList(list.slice(0, 30));
+        setRecentList(list);
       }
 
       function deleteRecent(id) {
@@ -2790,7 +2889,9 @@
       if (loadedData?.lang) appState.lang = loadedData.lang;
       if (loadedData?.viewMode) appState.viewMode = loadedData.viewMode;
       appState.uiMode = "initial";
+      sanitizeCurrentMeta();
       resetEditHistory(appState.markdown);
+      seedPresetRecentDocs();
 
       const editorState = EditorState.create({
         doc: appState.markdown,
@@ -2854,7 +2955,10 @@
         parent: document.getElementById("editorHost")
       });
 
-      const debouncedSave = debounce(saveCurrentToStorage, 300);
+      const debouncedSave = debounce(() => {
+        saveCurrentToStorage();
+        touchRecentForCurrentDoc();
+      }, 300);
 
       // split 模式滚动同步（基础骨架）
       const editorScroller = view.scrollDOM;
@@ -3194,6 +3298,7 @@
       });
 
       // 初始化
+      seedPresetRecentDocs();
       applyLanguage(appState.lang);
       ensurePresetRecentDocs().catch(() => {});
       renderSearchHistoryOptions();
@@ -3205,9 +3310,6 @@
       updateStatus();
       saveCurrentToStorage();
       setActiveEditorType("source");
-      requestAnimationFrame(() => {
-        document.body.dataset.appReady = "1";
-      });
 
       // 源码区点击即聚焦，避免出现“可见但无法输入”的焦点丢失情况
       dom.sourcePanel.addEventListener("mousedown", () => {

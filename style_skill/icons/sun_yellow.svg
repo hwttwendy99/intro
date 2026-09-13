@@ -1,12 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" requiredCustomFeatures="data-kd-color-scheme" km_stroke-width="1" km_darkmode="true"><desc>日_浅色模式_太阳_light_日间_白天</desc><style>
-    .kd-stroke-width-icon-regular { 
-       stroke-width: var(--kd-stroke-width-icon-regular, 1px)
-    }
-    .kd-color-icon-primary {
-       fill: var(--kd-color-icon-primary, #333333);
-       stroke: var(--kd-color-icon-primary, #333333);
-       km_fill: #333333;
-       km_stroke: #333333;
-       km_darkmode_fill: #C7C7C7;
-       km_darkmode_stroke: #C7C7C7; 
-    }</style><g id="group-0" class="kd-color-icon-primary kd-stroke-width-icon-regular"><path id="Ellipse 396" d="M11 7.5C11 9.433 9.433 11 7.5 11C5.567 11 4 9.433 4 7.5C4 5.567 5.567 4 7.5 4C9.433 4 11 5.567 11 7.5Z" fill="none" vector-effect="non-scaling-stroke" stroke-linejoin="round"/><path id="0 deg" d="M7.5 2V1" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke" stroke-linejoin="round"/><path id="45 deg" d="M3.50012 3.50012L2.79302 2.79302" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke" stroke-linejoin="round"/><path id="90 deg" d="M2 7.5H1" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke" stroke-linejoin="round"/><path id="135 deg" d="M3.5 11.5L2.79289 12.2071" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke" stroke-linejoin="round"/><path id="180 deg" d="M7.5 13V14" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke" stroke-linejoin="round"/><path id="225 deg" d="M11.5 11.5L12.2071 12.2071" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke" stroke-linejoin="round"/><path id="270 deg" d="M13 7.5H14" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke" stroke-linejoin="round"/><path id="315 deg" d="M11.5 3.5L12.2071 2.79289" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke" stroke-linejoin="round"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+  <g stroke="#333333" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="8" cy="8" r="2.5"/>
+    <path d="M8 1.8v1.7M8 12.5v1.7M1.8 8h1.7M12.5 8h1.7M3.4 3.4l1.2 1.2M11.4 11.4l1.2 1.2M12.6 3.4l-1.2 1.2M4.6 11.4l-1.2 1.2"/>
+  </g>
+</svg>

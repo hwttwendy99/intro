@@ -1,15 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" requiredCustomFeatures="data-kd-color-scheme, data-kd-polymorphism" km_stroke-width="1" km_darkmode="true"><desc>垃圾桶_删除_回收站_delete_recycle_pdf_delete_rightmenu</desc><style>
-.kd-opacity-icon { opacity: var(--kd-opacity-icon, 1) }
-.kd-opacity-icon:hover { opacity: var(--kd-opacity-icon-hover, 0.72) }
-.kd-opacity-icon:active { opacity: var(--kd-opacity-icon-active, 0.48) }
-    .kd-stroke-width-icon-regular { 
-       stroke-width: var(--kd-stroke-width-icon-regular, 1px)
-    }
-    .kd-color-icon-primary {
-       fill: var(--kd-color-icon-primary, #333333);
-       stroke: var(--kd-color-icon-primary, #333333);
-       km_fill: #333333;
-       km_stroke: #333333;
-       km_darkmode_fill: #C7C7C7;
-       km_darkmode_stroke: #C7C7C7; 
-    }</style><g class="kd-opacity-icon"><g id="group-0" class="kd-color-icon-primary kd-stroke-width-icon-regular"><path id="line" d="M5.5 1.5H10.5" stroke-linecap="round" stroke-linejoin="round" fill="none" vector-effect="non-scaling-stroke"/><path id="line_2" d="M7 12.5H9" stroke-linecap="round" stroke-linejoin="round" fill="none" vector-effect="non-scaling-stroke"/><path id="line_3" d="M1.5 4.5H14.5" stroke-linecap="round" stroke-linejoin="round" fill="none" vector-effect="non-scaling-stroke"/><path id="line_4" d="M3.5 4.5L4.45498 14.0498C4.48054 14.3054 4.69562 14.5 4.95249 14.5H11.0475C11.3044 14.5 11.5195 14.3054 11.545 14.0498L12.5 4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" vector-effect="non-scaling-stroke"/></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+  <g stroke="#333333" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3.2 5h9.6"/>
+    <path d="M6.1 3.2h3.8l.6 1.8H5.5l.6-1.8z"/>
+    <path d="M4.4 5l.7 8.2h5.8L11.6 5"/>
+    <path d="M6.6 7.2v4M9.4 7.2v4"/>
+  </g>
+</svg>
